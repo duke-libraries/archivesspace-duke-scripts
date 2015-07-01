@@ -79,6 +79,20 @@
     <xsl:template match="//ead:odd[not(ead:p)]"/>
     <xsl:template match="//ead:arrangement[not(ead:p)]"/>
     <xsl:template match="//ead:accessrestrict[not(ead:p)]"/>
+    
+<!-- Fixes occurences of "Missing Title" supplied in AT-AS migration for all bioghist/chronlist/head elements -->
+    <xsl:template match="//ead:chronlist/ead:head">
+        <xsl:choose>
+           <xsl:when test="contains(.,'Missing Title')">
+                <xsl:element name="head">Chronology</xsl:element>
+           </xsl:when>
+           <xsl:otherwise>
+               <xsl:element name="head">
+                   <xsl:apply-templates/>
+               </xsl:element>
+           </xsl:otherwise>
+        </xsl:choose>
+    </xsl:template>
        
     
 </xsl:stylesheet>
