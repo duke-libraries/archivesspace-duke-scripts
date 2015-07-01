@@ -93,6 +93,8 @@
            </xsl:otherwise>
         </xsl:choose>
     </xsl:template>
-       
     
+<!-- Removes <head> element when <list><head>Missing Title</head>.  A byproduce of AT to AS migraiton -->
+    <xsl:template match="//ead:list/ead:head"/>
+ 
 </xsl:stylesheet>
