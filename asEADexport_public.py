@@ -4,13 +4,13 @@ import requests
 import json
 
 # the base URL of your ArchivesSpace installation
-baseURL = 'http://aspace-backend.lib.duke.edu'
+baseURL = '[backend-url]'
 # the id of your repository
 repository = '2'
 # the username to authenticate with
-user = 'nh48'
+user = '[username]'
 # the password for the username above
-password = 'Ol1vernorth'
+password = '[password]'
 
 # authenticates the session
 auth = requests.post(baseURL + '/users/'+user+'/login?password='+password).json()
@@ -34,7 +34,7 @@ for id in resourceIds.json():
 	if "published" in published:
 		ead = requests.get(baseURL + '/repositories/'+repository+'/resource_descriptions/'+str(id)+'.xml'+export_options, headers=headers).text
 		# Sets the location where the files should be saved
-		destination = 'C:/users/nh48/desktop/EADsToPost/'
+		destination = '[filepath to save xml files]'
 		f = open(destination+eadID+'.xml', 'w')
 		f.write(ead.encode('utf-8'))
 		f.close
