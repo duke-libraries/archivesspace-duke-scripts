@@ -1,5 +1,5 @@
 # archivesspace-duke-scripts
-Various scripts to process ArchivesSpace EAD exports prior to publication.
+Various scripts to process ArchivesSpace EAD exports or interact with the ArchivesSpace API
 
 **EAD_ASpace_export_post-processor.xsl** - Fixes various validation issues with AS EAD exports, most related to namespace conflicts (ns2: vs. xlink:)
 
