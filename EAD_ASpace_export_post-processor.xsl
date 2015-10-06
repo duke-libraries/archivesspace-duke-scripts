@@ -75,10 +75,10 @@
     <xsl:template match="ead:dao[@xlink:href='[path]']"/>
     
 <!-- DOES THIS WORK? Remove empty note (without <p> subnote) -->
-    <xsl:template match="//ead:scopecontent[not(ead:p)]"/>
-    <xsl:template match="//ead:odd[not(ead:p)]"/>
-    <xsl:template match="//ead:arrangement[not(ead:p)]"/>
-    <xsl:template match="//ead:accessrestrict[not(ead:p)]"/>
+    <xsl:template match="//ead:scopecontent[not(ead:p or ead:list)]"/>
+    <xsl:template match="//ead:odd[not(ead:p or ead:list)]"/>
+    <xsl:template match="//ead:arrangement[not(ead:p or ead:list)]"/>
+    <xsl:template match="//ead:accessrestrict[not(ead:p or ead:list)]"/>
     
 <!-- Fixes occurences of "Missing Title" supplied in AT-AS migration for all bioghist/chronlist/head elements -->
     <xsl:template match="//ead:chronlist/ead:head">
