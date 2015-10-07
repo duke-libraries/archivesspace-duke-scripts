@@ -74,7 +74,7 @@
 <!--Remove <dao> when xlink:href contains [path] -->
     <xsl:template match="ead:dao[@xlink:href='[path]']"/>
     
-<!-- DOES THIS WORK? Remove empty note (without <p> subnote) -->
+<!-- DOES THIS WORK? Remove empty note (without <p> subnote or <list> subnote) -->
     <xsl:template match="//ead:scopecontent[not(ead:p or ead:list)]"/>
     <xsl:template match="//ead:odd[not(ead:p or ead:list)]"/>
     <xsl:template match="//ead:arrangement[not(ead:p or ead:list)]"/>
