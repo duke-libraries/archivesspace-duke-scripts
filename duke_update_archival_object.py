@@ -51,8 +51,11 @@ with open(archival_object_csv,'rb') as tsvin, open(updated_archival_object_csv,'
         # Use an identifier and a file_uri from the csv to create the digital object
         # If you don't have specific identifiers and just want a random string,
         # you could import uuid up top and do something like 'identifier = uuid.uuid4()'
-        identifier = row[13] #column 14 in CSV, first column is column 0
-        file_uri = row[14] #column 15 in CSV
+        identifier = row[13] #column 14 in TSV, first column is column 0
+        file_uri = row[14] #column 15 in TSV
+
+        #Set file version use statement values (image-service, audio-streaming, etc.)
+        file_version_use_statement = 'image-service'
 
         # Grab the archival object's ArchivesSpace ref_id from the csv
         ref_id = row[2] #column 3
@@ -84,7 +87,7 @@ with open(archival_object_csv,'rb') as tsvin, open(updated_archival_object_csv,'
             display_string = archival_object_json['display_string']
 
             # Form the digital object JSON using the display string from the archival object and the identifier and the file_uri from the csv
-            dig_obj = {'title':display_string,'digital_object_id':identifier,'file_versions':[{'file_uri':file_uri}]}
+            dig_obj = {'title':display_string,'digital_object_id':identifier,'file_versions':[{'file_uri':file_uri,'use_statement':file_version_use_statement}]}
             dig_obj_data = json.dumps(dig_obj)
 
             # Post the digital object
