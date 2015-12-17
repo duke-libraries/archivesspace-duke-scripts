@@ -27,7 +27,7 @@ archival_object_csv = os.path.normpath("c:/users/nh48/desktop/rush_test/ben_rush
 updated_archival_object_csv = os.path.normpath("c:/users/nh48/desktop/rush_test/ben_rush_digguide_with_uris.csv")
 
 # Modify your ArchivesSpace backend url, username, and password as necessary
-aspace_url = 'localhost:8089' #Backend URL for ASpace
+aspace_url = 'http://localhost:8089' #Backend URL for ASpace
 username= 'admin'
 password = 'admin'
 
