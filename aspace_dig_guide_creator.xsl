@@ -1,5 +1,7 @@
 ﻿<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-    xmlns:ead="urn:isbn:1-931666-22-9" xmlns="urn:isbn:1-931666-22-9" exclude-result-prefixes="ead">
+    xmlns:ead="urn:isbn:1-931666-22-9" 
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns="urn:isbn:1-931666-22-9" exclude-result-prefixes="ead">
 
 
     <!-- This XSLT is used to transform EAD exported from ArchivesSpace into the basis of a digitization guide spreadsheet (TSV)
@@ -135,7 +137,7 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
             <xsl:value-of select="$tab"/>
 
             <!-- Scopecontent notes, probably don't need these -->
-            <xsl:value-of select="normalize-space(ead:scopecontent/ead:p)"/>
+            <xsl:value-of select="normalize-space(ead:scopecontent[1]/ead:p)"/>
             <xsl:value-of select="$tab"/>
 
             <!-- Item-level provenance info.  Infrequent, remove comment if neede
@@ -159,7 +161,8 @@ Infrequent, remove comment if needed
             <xsl:value-of select="$tab"/>
 
             <!-- Placeholder column, values to be supplied in spreadsheet after digitization -->
-            <xsl:text>[DIGITAL OBJECT URI]</xsl:text>
+            <!--<xsl:text>[DIGITAL OBJECT URI]</xsl:text>-->
+            <xsl:value-of select="ead:did/ead:dao/@xlink:href"/>
             <xsl:value-of select="$tab"/>
 
             <xsl:value-of select="$newline"/>
