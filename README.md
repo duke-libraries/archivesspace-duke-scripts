@@ -1,5 +1,9 @@
 # archivesspace-duke-scripts
-Various scripts to process ArchivesSpace EAD exports or interact with the ArchivesSpace API
+Various scripts to process ArchivesSpace EAD exports, interact with the ArchivesSpace API, or query backend ASpace SQL database for reports
+
+**accession_extent_report.sql** - SQL script that queries ASpace SQL database for extent information for accessions acquired in a given time period. Adapted from similar script from Yale.
+
+**accession_report_simple.sql** - SQL script that queries ASpasce SQL database for basic information (e.g. id, title, extent, description, etc.) about accessions acquired in a given time period.  Can be use for quarterly reporting.
 
 **EAD_ASpace_export_post-processor.xsl** - Fixes various validation issues with Duke's ArchivesSpace EAD exports, most related to namespace conflicts carried over from Archivist Toolkit (ns2: vs. xlink:)
 
