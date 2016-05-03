@@ -1,7 +1,7 @@
 import requests
 import json
 import csv
-import os, sys, argparse #sys and argparse to allow for the passing of arguments in the command invocation
+import os, sys, argparse, getpass
 
 #This Script Works!! - Noah
 
@@ -35,7 +35,7 @@ import os, sys, argparse #sys and argparse to allow for the passing of arguments
 parser = argparse.ArgumentParser()
 parser.add_argument("-a","--aspaceurl", help="The backend URL for ASpace")
 parser.add_argument("-u","--user", help="Your aspace username")
-parser.add_argument("-p","--password", help="Your aspace password")
+#parser.add_argument("-p","--password", help="Your aspace password")
 parser.add_argument("-i","--input", help="Path to DigGuide created by XSLT")
 parser.add_argument("-o","--output", help="Path to and filename for the updated CSV created to verify everything went well")
 args = parser.parse_args()
@@ -46,18 +46,19 @@ if args.aspaceurl:
 if args.user:
 	global aspace_user
 	aspace_user = args.user
-if args.password:
-	global aspace_pword
-	aspace_pword = args.password
+#if args.password:
+#	global aspace_pword
+#	aspace_pword = args.password
 if args.input: 
 	global digguide
 	digguide = os.path.normpath(args.input)
 if args.output: 
 	global csv_out
 	csv_out = os.path.normpath(args.output)
-	
 
-auth = requests.post(aspace_backend+'/users/'+aspace_user+'/login?password='+aspace_pword).json()
+upass = getpass.getpass(prompt='Please enter your ASpace password')	
+
+auth = requests.post(aspace_backend+'/users/'+aspace_user+'/login?password='+upass).json()
 session = auth["session"]
 headers = {'X-ArchivesSpace-Session':session}
 
@@ -77,17 +78,17 @@ with open(digguide,'rb') as tsvin, open(csv_out,'wb') as csvout:
         # Use an identifier and a file_uri from the csv to create the digital object
         # If you don't have specific identifiers and just want a random string,
         # you could import uuid up top and do something like 'identifier = uuid.uuid4()'
-        identifier = row[4] #column in TSV, first column is column 0
-        file_uri = row[9] #column in TSV, first column is 0
+        identifier = row[2] #column in TSV, first column is column 0
+        file_uri = row[5] #column in TSV, first column is 0
 
         #Set file version use statement values (image-service, audio-streaming, etc.)
-        file_version_use_statement = row[10] #column in TSV, first column is 0
+        file_version_use_statement = row[6] #column in TSV, first column is 0
 		
 		#Set whether the DO should be published or not
         publish_yesorno = True
 
         # Grab the archival object's ArchivesSpace ref_id from the csv
-        ref_id = row[8] #column 3
+        ref_id = row[4] #column 3
 
         print ref_id
 
@@ -139,7 +140,7 @@ with open(digguide,'rb') as tsvin, open(csv_out,'wb') as csvout:
             # Append the new instance to the existing archival object record's instances
             archival_object_json['instances'].append(dig_obj_instance)
             archival_object_data = json.dumps(archival_object_json)
-            print archival_object_data
+
             # Repost the archival object
             archival_object_update = requests.post(aspace_backend+archival_object_uri,headers=headers,data=archival_object_data).json()
 

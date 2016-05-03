@@ -7,6 +7,8 @@ import os, sys, argparse #sys and argparse to allow for the passing of arguments
 
 #I added arguments and it still works!! - Farrell
 
+#It will now look for two file versions!! - Farrell
+
 # This script will create a new digital object and link it as an instance to an existing archival object
 # This was written under the assumption that you might have a csv (or similar), exported from ASpace or
 # compiled from an ASpace exported EAD, with an existing archival object's ref_id. Using only the ref_id,
@@ -77,17 +79,18 @@ with open(digguide,'rb') as tsvin, open(csv_out,'wb') as csvout:
         # Use an identifier and a file_uri from the csv to create the digital object
         # If you don't have specific identifiers and just want a random string,
         # you could import uuid up top and do something like 'identifier = uuid.uuid4()'
-        identifier = row[4] #column in TSV, first column is column 0
-        file_uri = row[9] #column in TSV, first column is 0
+        identifier = row[3] #column in TSV, first column is column 0
+        file_uri = row[6] #column in TSV, first column is 0
+        file_uri2 = row[8] #column in TSV, first column is 0
 
         #Set file version use statement values (image-service, audio-streaming, etc.)
-        file_version_use_statement = row[10] #column in TSV, first column is 0
-		
+        file_version_use_statement = row[7] #column in TSV, first column is 0
+        file_version_use_statement2 = row[9] #column in TSV, first column is 0
 		#Set whether the DO should be published or not
         publish_yesorno = True
 
         # Grab the archival object's ArchivesSpace ref_id from the csv
-        ref_id = row[8] #column 3
+        ref_id = row[5] #column in TSV, first column is 0
 
         print ref_id
 
@@ -116,7 +119,7 @@ with open(digguide,'rb') as tsvin, open(csv_out,'wb') as csvout:
             display_string = archival_object_json['display_string']
 
             # Form the digital object JSON using the display string from the archival object and the identifier and the file_uri from the csv
-            dig_obj = {'title':display_string,'digital_object_id':identifier,'publish':publish_yesorno,'file_versions':[{'file_uri':file_uri,'use_statement':file_version_use_statement}]}
+            dig_obj = {'title':display_string,'digital_object_id':identifier,'publish':publish_yesorno,'file_versions':[{'file_uri':file_uri,'use_statement':file_version_use_statement},{'file_uri':file_uri2,'use_statement':file_version_use_statement2}]}
             dig_obj_data = json.dumps(dig_obj)
 
             # Post the digital object
