@@ -35,6 +35,9 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
 
         <xsl:text>Container_2</xsl:text>
         <xsl:value-of select="$tab"/>
+        
+        <xsl:text>Container_3</xsl:text>
+        <xsl:value-of select="$tab"/>
 
         <xsl:text>Title</xsl:text>
         <xsl:value-of select="$tab"/>
@@ -54,12 +57,17 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
 
         <xsl:text>Series_title</xsl:text>
         <xsl:value-of select="$tab"/>
+        
+        <xsl:text>Subseries_title</xsl:text>
+        <xsl:value-of select="$tab"/>
 
         <xsl:text>Date_normal</xsl:text>
         <xsl:value-of select="$tab"/>
 
+<!-- DON'T NEET THESE
         <xsl:text>Scopecontent</xsl:text>
         <xsl:value-of select="$tab"/>
+        -->
 
         <!-- Infrequent, remove comment if needed
         <xsl:text>Provenance</xsl:text>
@@ -93,7 +101,7 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
         <xsl:value-of select="$newline"/>
 
         <!-- might need to manipulate resulting sheet if collection contains both file and item-level components -->
-        <xsl:for-each select="//ead:*[@level = 'item']|//ead:*[@level='file']">
+        <xsl:for-each select="//ead:*[@level = 'file']">
 
             <!-- First container, e.g. Box -->
             <xsl:value-of select="ead:did/ead:container[1]"/>
@@ -101,12 +109,15 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
 
             <!-- Second container, e.g. Folder -->
 
-            <xsl:value-of select="ead:did/ead:container[2]"/>
+            <xsl:value-of select="normalize-space(ead:did/ead:container[2])"/>
+            <xsl:value-of select="$tab"/>
+            
+            <xsl:value-of select="normalize-space(ead:did/ead:container[3])"/>
             <xsl:value-of select="$tab"/>
 
 
             <!-- Folder/file/item title -->
-            <xsl:value-of select="normalize-space(./ead:did/ead:unittitle)"/>
+            <xsl:value-of select="normalize-space(ead:did/ead:unittitle)"/>
             <xsl:value-of select="$tab"/>
 
             <!-- Date Expression -->
@@ -129,16 +140,20 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
             <xsl:value-of select="$tab"/>
 
             <!-- Series Title -->
-            <xsl:value-of select="ancestor::ead:*[@level = 'series']/ead:did/ead:unittitle"/>
+            <xsl:value-of select="normalize-space(ancestor::ead:*[@level = 'series']/ead:did/ead:unittitle)"/>
+            <xsl:value-of select="$tab"/>
+
+            <!-- Subseries Title -->
+            <xsl:value-of select="normalize-space(ancestor::ead:*[@level = 'subseries'][1]/ead:did/ead:unittitle)"/>
             <xsl:value-of select="$tab"/>
 
             <!-- Normalized Date -->
             <xsl:value-of select="ead:did/ead:unitdate/@normal"/>
             <xsl:value-of select="$tab"/>
 
-            <!-- Scopecontent notes, probably don't need these -->
+            <!-- Scopecontent notes, probably don't need these
             <xsl:value-of select="normalize-space(ead:scopecontent[1]/ead:p)"/>
-            <xsl:value-of select="$tab"/>
+            <xsl:value-of select="$tab"/> -->
 
             <!-- Item-level provenance info.  Infrequent, remove comment if neede
             <xsl:value-of select="normalize-space(ead:acqinfo/ead:p)"/>
@@ -156,8 +171,8 @@ Infrequent, remove comment if needed
     <xsl:if test="ead:controlaccess/ead:geogname"><xsl:for-each select="ead:controlaccess/ead:geogname"><xsl:value-of select="normalize-space(.)"/><xsl:choose><xsl:when test="position()=last()"/><xsl:otherwise><xsl:text>; </xsl:text></xsl:otherwise></xsl:choose></xsl:for-each></xsl:if><xsl:value-of select="$tab"/>
   -->
 
-            <!-- ASpace refID for Archival Object record, may need to strip "aspace_" prefix from these values?-->
-            <xsl:value-of select="./@id"/>
+            <!-- ASpace refID for Archival Object record, strip "aspace_" prefix from these values-->
+            <xsl:value-of select="replace(normalize-space(./@id),'aspace_','')"/>
             <xsl:value-of select="$tab"/>
 
             <!-- Placeholder column, values to be supplied in spreadsheet after digitization -->

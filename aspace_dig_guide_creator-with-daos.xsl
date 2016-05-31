@@ -41,7 +41,7 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
         <xsl:text>Container_2</xsl:text>
         <xsl:value-of select="$tab"/>
 
-        <xsl:text>Title</xsl:text>
+        <xsl:text>File Title</xsl:text>
         <xsl:value-of select="$tab"/>
 
         <xsl:text>Date</xsl:text>
@@ -74,6 +74,10 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
 
         <!-- Infrequent, remove comment if needed -->
         <xsl:text>Provenance</xsl:text>
+        <xsl:value-of select="$tab"/>
+        
+        <!-- Preferred Citation -->
+        <xsl:text>Preferred Citation</xsl:text>
         <xsl:value-of select="$tab"/>
 
         <!--Infrequent at component level, remove comment if needed
@@ -174,6 +178,12 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
                 <xsl:value-of select="normalize-space(.)"/><xsl:text> </xsl:text>
             </xsl:for-each>
             <xsl:value-of select="$tab"/>
+            
+            <!-- Preferred Citation -->
+            <xsl:for-each select="ead:prefercite/ead:p">
+                <xsl:value-of select="normalize-space(.)"/><xsl:text> </xsl:text>
+            </xsl:for-each>
+            <xsl:value-of select="$tab"/>
 
 
 <!-- Get all the subject, name, and place name headings and separate with semicolons
@@ -187,8 +197,8 @@ Infrequent, remove comment if needed
     <xsl:if test="ead:controlaccess/ead:geogname"><xsl:for-each select="ead:controlaccess/ead:geogname"><xsl:value-of select="normalize-space(.)"/><xsl:choose><xsl:when test="position()=last()"/><xsl:otherwise><xsl:text>; </xsl:text></xsl:otherwise></xsl:choose></xsl:for-each></xsl:if><xsl:value-of select="$tab"/>
   -->
 
-            <!-- ASpace refID for Archival Object record, may need to strip "aspace_" prefix from these values?-->
-            <xsl:value-of select="./@id"/>
+            <!-- ASpace refID for Archival Object record, strip "aspace_" prefix from these values-->
+            <xsl:value-of select="replace(normalize-space(./@id),'aspace_','')"/>
             <xsl:value-of select="$tab"/>
 
             <!-- Placeholder column, values to be supplied in spreadsheet after digitization -->
