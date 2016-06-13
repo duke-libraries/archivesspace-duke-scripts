@@ -6,8 +6,6 @@ import json
 import re
 import ConfigParser
 
-#resources = raw_input("List of resourceIDs:  ")
-#resources_list = resources.split(",")
 
 # local config file, contains variables
 configFilePath = 'local_settings.cfg'
