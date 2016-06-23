@@ -16,6 +16,6 @@ WHERE
         WHERE
             LOWER(value) LIKE '%linear%'))
         AND repo_id = 2
-        AND accession.accession_date >= '20151001'
-        AND accession.accession_date <= '20151231'
+        AND accession.accession_date >= '20150701'
+        AND accession.accession_date <= '20160631'
 GROUP BY acquisition_type_id;
