@@ -1,9 +1,19 @@
 # archivesspace-duke-scripts
 Various scripts to process ArchivesSpace EAD exports, interact with the ArchivesSpace API, or query backend ASpace SQL database for reports
 
-**accession_extent_report.sql** - SQL script that queries ASpace SQL database for extent information for accessions acquired in a given time period. Adapted from similar script from Yale.
+**accessions_acquired_FYreport_final.sql** - SQL script that queries ASpace SQL database for information about accessions acquired in a given time period (typically a fiscal year).
 
-**accession_report_simple.sql** - SQL script that queries ASpasce SQL database for basic information (e.g. id, title, extent, description, etc.) about accessions acquired in a given time period.  Can be use for quarterly reporting.
+**accessions_without_acquisition_type.sql** - SQL script that queries ASpasce SQL database for list of accessions missing an acquisition type value. Used for periodic data QC.
+
+**accessions_without_extent.sql** - SQL script that queries ASpasce SQL database for list of accessions missing an extent statement of any kind. Used for periodic data QC.
+
+**accessions_without_extent_in_linear_feet.sql** - SQL script that queries ASpasce SQL database for list of accessions missing an extent statement in linear feet. Used for periodic data QC.
+
+**accessions_without_extent_number.sql** - SQL script that queries ASpasce SQL database for list of accessions missing an extent number. Used for periodic data QC.
+
+**extent_accessioned_by_acquisition_type.sql** - SQL script that queries ASpasce SQL database and generates a report showing extent (number and linear_feet) of accessions by acqusition type (gift, purchase, etc.).
+
+**extent_accessioned_by_research_center.sql** - SQL script that queries ASpasce SQL database and generates a report showing extent (number and linear_feet) of accessions by Rubenstein Library research center (Hartman, Bingham, Franklin, etc.)
 
 **EAD_ASpace_export_post-processor.xsl** - Fixes various validation issues with Duke's ArchivesSpace EAD exports, most related to namespace conflicts carried over from Archivist Toolkit (ns2: vs. xlink:)
 
