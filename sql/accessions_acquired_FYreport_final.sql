@@ -24,12 +24,12 @@ SELECT
     accession.created_by,
     ev5.value AS processing_priority,
     ev6.value AS processing_status,
-    collection_management.processing_hours_total as 'total_processing_hours'
+    collection_management.processing_hours_total AS 'total_processing_hours'
 FROM
     accession
         LEFT JOIN
-	collection_management on accession.id = collection_management.accession_id
-		LEFT JOIN
+    collection_management ON accession.id = collection_management.accession_id
+        LEFT JOIN
     user_defined ON accession.id = user_defined.accession_id
         LEFT JOIN
     enumeration_value ev2 ON user_defined.enum_2_id = ev2.id
@@ -41,10 +41,10 @@ FROM
     extent ON accession.id = extent.accession_id
         LEFT JOIN
     enumeration_value ev4 ON extent.extent_type_id = ev4.id
-		LEFT JOIN
-	enumeration_value ev5 ON collection_management.processing_priority_id = ev5.id
-		LEFT JOIN
-	enumeration_value ev6 ON collection_management.processing_status_id = ev6.id
+        LEFT JOIN
+    enumeration_value ev5 ON collection_management.processing_priority_id = ev5.id
+        LEFT JOIN
+    enumeration_value ev6 ON collection_management.processing_status_id = ev6.id
 WHERE
     accession.accession_date >= '20150701'
         AND accession.accession_date <= '20160631'
