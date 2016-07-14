@@ -1,8 +1,6 @@
 # archivesspace-duke-scripts
 Various scripts to process ArchivesSpace EAD exports, interact with the ArchivesSpace API, or query backend ASpace SQL database for reports
 
-**EAD_ASpace_export_post-processor.xsl** - Fixes various validation issues with Duke's ArchivesSpace EAD exports, most related to namespace conflicts carried over from Archivist Toolkit (ns2: vs. xlink:)
-
 **EADrenamer.py** - Python script to batch rename EAD exports based on value of <eadid> element.
 
 **EADrenamer_published_only.py** - Python script to batch rename EAD exports based on value of <eadid> element.  The script will only process EADs where eadheader/@findaidstatus="published".  Files are renamed and moved to the specified source directory
@@ -19,8 +17,6 @@ repository:1
 user:admin
 password:adminpassword
 ```
-
-**aspace_dig_guide_creator.xsl** - XSLT that extracts metadata and refIDs from ASpace EAD exports and creates a digitization guide spreadsheet (TSV) suitable for use by Duke's Digital Production Center (DPC). Digital Object IDs and URIs can be added to the spreadsheet by DPC during digitization. This script should be modified based on the level of description in a given collection (file vs. item) and the metadata available for any given component in a collection (dates, subjects, etc.). The completed digitization guide can serve as the basis for batch loading digital object records in ArchivesSpace and linking those digital objects as instances to existing archival object (component) records using duke_update_archival_object.py
 
 **duke_update_archival_object.py** - Python script that reads TSV file produced from aspace_dig_guide_creator.xsl script (including Digital Object IDs and URIs) and batch loads digital object records in ArchivesSpace and links them as instances to existing archival object component records based on the archival object's refID value. This script should be modified to specify input TSV file location and filename/location for output CSV file. It should also be modified if the column position of the Digital Object IDs or URIs changes in the input TSV file.  This script is adapted from: https://github.com/djpillen/bentley_scripts/blob/master/update_archival_object.py
 
