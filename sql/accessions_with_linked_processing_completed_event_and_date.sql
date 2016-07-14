@@ -25,8 +25,8 @@ FROM
 		LEFT JOIN
 	date ON event.id = date.event_id
 WHERE
-    LOWER(enumeration_value.value) LIKE '%linear%'
-        AND accession.repo_id = 2
-        AND LOWER(ev2.value) LIKE '%cataloged%'
+    #LOWER(enumeration_value.value) LIKE '%linear%'
+        accession.repo_id = 2
+        AND LOWER(ev2.value) LIKE '%processing_completed%'
         AND date.begin >= '2015-07-01'
         AND date.begin <= '2016-06-30'
