@@ -6,6 +6,8 @@
 
 **asEADexport_eadid_input.py** - Python script to batch export EADs based on eadid input. Prompts for a list of eadid values separated with commas (e.g. eadid1,eadid2,eadid3). Will export EADs for all eadids provided if marked "published" in ASpace. Script relies on a config file (local_settings.cfg) that contains repository URL, username, password.
 
+**asEADpublish_and_export_eadid_input.py** - Python script (similar to above) that exports EADs based on eadid input. Prompts for list of eadid values separated with commas. Checks to see if a resource's finding aid status is 'published'.  If so, it exports the EAD to a spficied location, if not, it sets the finding aid status to "published" AND publishes the resource and all components.  Then, it exports the modified EAD.  See comments in script for more details.
+
 For example:
 ```
 [ArchivesSpace]
