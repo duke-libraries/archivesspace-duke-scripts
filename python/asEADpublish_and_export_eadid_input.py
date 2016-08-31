@@ -81,7 +81,7 @@ for eadid in eadids_list:
 			resource_update = requests.post(baseURL + resource_uri,headers=headers,data=resource_data).json()
 			print 'reposted ' + eadID + ' with publish status'
 			resource_publish_all = requests.post(baseURL + resource_uri + '/publish',headers=headers)
-			print 'publishing' +eadID' + resource and all children'
+			print 'publishing ' +eadID + ' resource and all children'
 			ead = requests.get(baseURL + id_uri_string + '.xml' +export_options, headers=headers).text
 		# Sets the location where the files should be saved
 			destination = 'C:/users/nh48/desktop/as_exports_temp/'
