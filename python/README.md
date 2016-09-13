@@ -17,7 +17,7 @@ user:admin
 password:adminpassword
 ```
 
-**asUpdateDAOs.py** - WARNING. USE AT YOUR OWN RISK. NEEDS MORE TESTING. A python script used to update Digital Object identifiers and file version URIs in ASpace based on an input CSV with refIDs for the the linked Archival Object.  Input is a five column CSV (without column headers) that includes: #[old file version use statement],[old file version URI],[new file version URI],[ASpace ref_id],[ark identifier in DDR (e.g. ark:/87924/r34j0b091)].
+**asUpdateDAOs.py** - WARNING. USE AT YOUR OWN RISK. NEEDS MORE TESTING. ONLY WORKS WITH ARCHIVESSPACE v.1.5+. A python script used to update Digital Object identifiers and file version URIs in ASpace based on an input CSV with refIDs for the the linked Archival Object.  Input is a five column CSV (without column headers) that includes: #[old file version use statement],[old file version URI],[new file version URI],[ASpace ref_id],[ark identifier in DDR (e.g. ark:/87924/r34j0b091)].
 
 **duke_update_archival_object.py** - Python script that reads TSV file produced from aspace_dig_guide_creator.xsl script (including Digital Object IDs and URIs) and batch loads digital object records in ArchivesSpace and links them as instances to existing archival object component records based on the archival object's refID value. This script should be modified to specify input TSV file location and filename/location for output CSV file. It should also be modified if the column position of the Digital Object IDs or URIs changes in the input TSV file.  This script is adapted from: https://github.com/djpillen/bentley_scripts/blob/master/update_archival_object.py
 
