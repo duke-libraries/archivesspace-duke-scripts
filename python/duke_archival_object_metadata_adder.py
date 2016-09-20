@@ -4,8 +4,8 @@ import csv
 import os
 
 
-#This Script Works. --Noah
-#Currently adds a repository processing note based on two column TSV input file where column 1 contains the component ref_id and column 2 contains the text of the note
+
+#Script currently adds a repository processing note based on two column TSV input file where column 1 contains the component ref_id and column 2 contains the text of the note
 
 
 # This was written under the assumption that you might have a csv (or similar), exported from ASpace or
@@ -14,62 +14,52 @@ import os
 # object's JSON, and supply a new repository_processing_note for the archival object (supplied in the input TSV),
 # The script will then repost the archival object to ASpace using the update archival object endpoint
 
-# The 2 column TSV will look like this:
-# [Aspace ref_id]	[repo_processing_note]
+# The 2 column CSV will look like this (without a header row):
+# [ASpace ref_id],[repo_processing_note]
 
 
 # The archival_object_csv will be your starting TSV (as .txt) with the ASpace ref_id of the archival object's to be updated,
-archival_object_csv = os.path.normpath("c:/users/nh48/desktop/gedney_sample_repo_note_updater_spreadsheet.txt")
+archival_object_csv = os.path.normpath("c:/users/nh48/desktop/ASpace_api_docs/notes_to_add.csv")
 
 # The updated_archival_object_csv will be an updated csv that will be created at the end of this script, containing all of the same
 # information as the starting csv, plus the ArchivesSpace uris for the archival and digital objects
-updated_archival_object_csv = os.path.normpath("c:/users/nh48/desktop/gedney_archival_objects_updated.csv")
+updated_archival_object_csv = os.path.normpath("c:/users/nh48/desktop/ASpace_api_docs/notes_added.csv")
 
 # Modify your ArchivesSpace backend url, username, and password as necessary
 aspace_url = 'http://localhost:8089' #Backend URL for ASpace
 username= 'admin'
-password = 'admin'
+password = 'rubensteinAdmin123'
 
 auth = requests.post(aspace_url+'/users/'+username+'/login?password='+password).json()
 session = auth["session"]
 headers = {'X-ArchivesSpace-Session':session}
 
-#Modified for TSV input, which is default output of aspace_dig_guide_creator.xsl
-with open(archival_object_csv,'rb') as tsvin, open(updated_archival_object_csv,'wb') as csvout:
-    tsvin = csv.reader(tsvin, delimiter='\t')
-    next(tsvin, None) #ignore header row
-    csvout = csv.writer(csvout)
-    for row in tsvin:
+with open(archival_object_csv,'rb') as csvfile:
+    reader = csv.reader(csvfile)
+    for row in reader:
 
-#Original code below assumes CSV input format
-#with open(archival_object_csv,'rb') as csvfile:
-#    reader = csv.reader(csvfile)
-#    next(reader, None)
-#    for row in reader:
-
-        # Use an identifier and a file_uri from the csv to create the digital object
-        # If you don't have specific identifiers and just want a random string,
-        # you could import uuid up top and do something like 'identifier = uuid.uuid4()'
+        #Grab the text of the note you want to add from the CSV
         repo_processing_note = row[1] #column 2 in CSV, first column is column 0
 
-        # Grab the archival object's ArchivesSpace ref_id from the csv
+        # Grab the archival object's ArchivesSpace ref_id from the CSV
         ref_id = row[0] #column 1
 
-        print ref_id
+        print 'Ref ID: ' + ref_id
 
-        # Search ASpace for the ref_id
-        search = requests.get(aspace_url+'/repositories/2/search?page=1&q='+ref_id,headers=headers).json() #change repository number as needed
+        # Use the find_by_id endpoint (only availble in v1.5+) to  use the ref_ID in the CSV to retrieve the archival object's URI
+        params = {"ref_id[]":ref_id}
+        lookup = requests.get(aspace_url+'/repositories/2/find_by_id/archival_objects',headers=headers, params=params).json()
 
         
         # Grab the archival object uri from the search results
-        archival_object_uri = search['results'][0]['uri']
+        archival_object_uri = lookup['archival_objects'][0]['ref']
 
-        print archival_object_uri
+        print 'Archival Object: ' + archival_object_uri
 
         # Submit a get request for the archival object and store the JSON
         archival_object_json = requests.get(aspace_url+archival_object_uri,headers=headers).json()
 
-        #print the JSON reponse to see where you might want to add other notes or metadata values, etc.
+        #print the JSON reponse to see structure and figure out where you might want to add other notes or metadata values, etc.
         #print archival_object_json
 
         # Continue only if the search-returned archival object's ref_id matches our starting ref_id, just to be safe
@@ -85,10 +75,12 @@ with open(archival_object_csv,'rb') as tsvin, open(updated_archival_object_csv,'
             # Repost the archival object containing the new note
             archival_object_update = requests.post(aspace_url+archival_object_uri,headers=headers,data=archival_object_data).json()
 
-            #print confirmation that archival object was updated. response should contain any warnings
-            print archival_object_update
+            #print confirmation that archival object was updated. Response should contain any warnings
+            print 'Status: ' + archival_object_update['status']
 
-            # Write a new csv with all the info from the initial csv + the ArchivesSpace uris for the updated archival objects
+            # Write a new CSV with all the info from the initial csv + the ArchivesSpace uris for the updated archival objects
             with open(updated_archival_object_csv,'ab') as csvout:
                 writer = csv.writer(csvout)
                 writer.writerow(row)
+            #print a new line to the console
+            print '\n'
