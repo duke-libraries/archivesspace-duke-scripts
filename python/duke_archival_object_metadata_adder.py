@@ -28,7 +28,7 @@ updated_archival_object_csv = os.path.normpath("c:/users/nh48/desktop/ASpace_api
 # Modify your ArchivesSpace backend url, username, and password as necessary
 aspace_url = 'http://localhost:8089' #Backend URL for ASpace
 username= 'admin'
-password = 'rubensteinAdmin123'
+password = 'admin'
 
 auth = requests.post(aspace_url+'/users/'+username+'/login?password='+password).json()
 session = auth["session"]
