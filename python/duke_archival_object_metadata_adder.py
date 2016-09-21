@@ -83,5 +83,10 @@ with open(archival_object_csv,'rb') as csvfile:
             with open(updated_archival_object_csv,'ab') as csvout:
                 writer = csv.writer(csvout)
                 writer.writerow(row)
+<<<<<<< HEAD
             #print a new line to the console, helps with readability
             print '\n'
+=======
+            #print a new line to the console
+            print '\n'
+>>>>>>> origin/master
