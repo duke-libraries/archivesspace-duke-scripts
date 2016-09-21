@@ -3,8 +3,6 @@ import json
 import csv
 import os
 
-
-
 #Script currently adds a repository processing note based on two column TSV input file where column 1 contains the component ref_id and column 2 contains the text of the note
 
 # This was written under the assumption that you might have a csv (or similar), exported from ASpace or
@@ -15,7 +13,6 @@ import os
 
 # The 2 column CSV should look like this (without a header row):
 # [ASpace ref_id],[repo_processing_note]
-
 
 # The archival_object_csv will be your starting TSV (as .txt) with the ASpace ref_id of the archival object's to be updated,
 archival_object_csv = os.path.normpath("c:/users/nh48/desktop/ASpace_api_docs/notes_to_add.csv")
