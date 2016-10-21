@@ -4,8 +4,7 @@ import csv
 import os
 import getpass
 
-
-# This script will create a new digital object record in ArchivesSpace and link it as an instance to an existing archival object
+# This script will batch create new digital object records in ArchivesSpace (from CSV input) and link them as instances of an existing archival object
 
 #DETAIL
 # This was written under the assumption that you might have a csv (or similar), exported from ASpace or
