@@ -83,7 +83,7 @@ with open(archival_object_csv,'rb') as csvfile, open(updated_archival_object_csv
         new_ao_json = {'children': [{'ref_id': ref_id,'title': new_ao_title,'level': new_ao_level,'instances': [{'instance_type':'mixed_materials','container':{'type_1':'box','indicator_1':new_ao_container_1_number,'type_2':new_ao_container_2_type,'indicator_2':new_ao_container_2_number}}]}]}
         new_ao_data = json.dumps(new_ao_json)
 
-        #post archival object as children of specified parent using /children endpoint
+        #post archival object as child of specified parent using /children endpoint
         new_ao_post = requests.post(aspace_url+'/repositories/2/archival_objects/' + archival_object_parent_id + '/children',headers=headers,data=new_ao_data).json()
         print 'Created new AO child of: ', new_ao_post['id']
 
