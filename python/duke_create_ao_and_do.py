@@ -14,7 +14,7 @@ import uuid
 # Finally, the script will write out a CSV containing the same information as the starting CSV plus
 # the refIDs and URIs for the created archival objects and the the URIs for the created digital objects
 
-# The 9 column input csv should include a header row and be formatted with the columns identified on line 69:
+# The 9 column input csv should include a header row and be formatted with the columns identified on line 72:
 # Input CSV can be modified to supply additional input metadata for forming the archival or digital objects
 
 #AUTHENTICATION STUFF:
