@@ -101,7 +101,7 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
         <xsl:value-of select="$newline"/>
 
         <!-- might need to manipulate resulting sheet if collection contains both file and item-level components -->
-        <xsl:for-each select="//ead:*[@level = 'file']">
+        <xsl:for-each select="//ead:*[@level = 'file']|//ead:*[@level = 'item']">
 
             <!-- First container, e.g. Box -->
             <xsl:value-of select="ead:did/ead:container[1]"/>
