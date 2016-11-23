@@ -140,7 +140,7 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
             <xsl:value-of select="$tab"/>
 
             <!-- Series Title -->
-            <xsl:value-of select="normalize-space(ancestor::ead:*[@level = 'series']/ead:did/ead:unittitle)"/>
+            <xsl:value-of select="normalize-space(ancestor::ead:*[@level = 'series'][1]/ead:did/ead:unittitle)"/>
             <xsl:value-of select="$tab"/>
 
             <!-- Subseries Title -->
