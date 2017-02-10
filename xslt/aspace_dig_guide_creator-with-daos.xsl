@@ -187,8 +187,8 @@ Infrequent, remove comment if needed
     <xsl:if test="ead:controlaccess/ead:geogname"><xsl:for-each select="ead:controlaccess/ead:geogname"><xsl:value-of select="normalize-space(.)"/><xsl:choose><xsl:when test="position()=last()"/><xsl:otherwise><xsl:text>; </xsl:text></xsl:otherwise></xsl:choose></xsl:for-each></xsl:if><xsl:value-of select="$tab"/>
   -->
 
-            <!-- ASpace refID for Archival Object record, may need to strip "aspace_" prefix from these values?-->
-            <xsl:value-of select="./@id"/>
+            <!-- ASpace refID for Archival Object record, strips the "aspace_" prefix from these values-->
+             <xsl:value-of select="replace(normalize-space(./@id),'aspace_','')"/>
             <xsl:value-of select="$tab"/>
 
             <!-- Placeholder column, values to be supplied in spreadsheet after digitization -->
