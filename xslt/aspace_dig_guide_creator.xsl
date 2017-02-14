@@ -64,10 +64,9 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
         <xsl:text>Date_normal</xsl:text>
         <xsl:value-of select="$tab"/>
 
-<!-- DON'T NEET THESE
+<!-- Scopecontent - comment out if not needed -->
         <xsl:text>Scopecontent</xsl:text>
         <xsl:value-of select="$tab"/>
-        -->
 
         <!-- Infrequent, remove comment if needed
         <xsl:text>Provenance</xsl:text>
@@ -151,9 +150,9 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
             <xsl:value-of select="ead:did/ead:unitdate/@normal"/>
             <xsl:value-of select="$tab"/>
 
-            <!-- Scopecontent notes, probably don't need these
+            <!-- Scopecontent notes, comment out if you don't need these -->
             <xsl:value-of select="normalize-space(ead:scopecontent[1]/ead:p)"/>
-            <xsl:value-of select="$tab"/> -->
+            <xsl:value-of select="$tab"/>
 
             <!-- Item-level provenance info.  Infrequent, remove comment if neede
             <xsl:value-of select="normalize-space(ead:acqinfo/ead:p)"/>
