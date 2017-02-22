@@ -62,8 +62,6 @@ with open(digital_objects_input_csv,'rb') as csvfile, open(updated_digital_objec
         # Use input DO URI to submit a get request for the digital object and store the JSON
         digital_object_json = requests.get(aspace_url+input_do_uri,headers=headers).json()
 
-        
-
         #Overwrite existing fields with new values from CSV. Comment out any fields you don't want to overwrite
         digital_object_json['digital_object_id'] = input_do_identifier
         digital_object_json['title'] = input_do_title
@@ -89,9 +87,8 @@ with open(digital_objects_input_csv,'rb') as csvfile, open(updated_digital_objec
         #Lookup the digital object again and capture JSON response for updated digital object
         updated_digital_object_json = requests.get(aspace_url+input_do_uri,headers=headers).json()
 
-        #Just stuff all the JSON for the updated object in a call at the end of the CSV...probably a bad idea
+        #Just stuff all the JSON for the updated object in a cell at the end of the CSV...probably a bad idea
         row.append(updated_digital_object_json)
-
 
         #Write a new csv with all the info from the initial csv + the ArchivesSpace uris for the archival and digital objects
         with open(updated_digital_objects_csv,'ab') as csvout:
