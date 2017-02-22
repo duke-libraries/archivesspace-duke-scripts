@@ -37,7 +37,7 @@ digital_objects_list = requests.get(aspace_url+ '/repositories/' + aspace_repo +
 with open(digital_object_export_csv,'wb') as csvfile:
     writer = csv.writer(csvfile)
     #write CSV header row
-    writer.writerow(["digital_object_URI", "digital_object_identifier", "digital_object_title", "digital_object_publish", "file_version_uri", "file_version_use_statement", "linked_instances"])
+    writer.writerow(["digital_object_URI", "digital_object_identifier", "digital_object_title", "digital_object_publish", "linked_instances", "file_version_uri_1", "file_version_use_statement_1", "file_version_uri_2", "file_version_use_statement_2"])
 
     for digital_object_id in digital_objects_list:
         do_json = requests.get(aspace_url+'/repositories/2/digital_objects/' + str(digital_object_id),headers=headers).json()
@@ -47,22 +47,47 @@ with open(digital_object_export_csv,'wb') as csvfile:
         digital_object_title = do_json['title']
         digital_object_publish = do_json['publish']
 
-        try:
-            file_version_uri = do_json['file_versions'][0]['file_uri']
-        except:
-            pass
 
-        try:
-            file_version_use_statement = do_json['file_versions'][0]['use_statement']
-        except:
-            pass
+        row = [digital_object_URI, digital_object_identifier.encode("utf-8"), digital_object_title.encode("utf-8"), digital_object_publish]
 
+#write data to CSV
+   
         try:
             linked_instances = do_json['linked_instances'][0]['ref']
+            row.append(linked_instances)
         except:
+            row.append("")
             pass
 
-        #write data to CSV
-        row = [digital_object_URI, digital_object_title.encode("utf-8"), digital_object_publish, file_version_uri.encode("utf-8"), file_version_use_statement, linked_instances]
+        try:
+            file_version_uri_1 = do_json['file_versions'][0]['file_uri']
+            row.append(file_version_uri_1.encode("utf-8"))
+        except:
+            row.append("")
+            pass
+
+        try:
+            file_version_use_statement_1 = do_json['file_versions'][0]['use_statement']
+            row.append(file_version_use_statement_1)
+        except:
+            row.append("")
+            pass
+
+        try:
+            file_version_uri_2 = do_json['file_versions'][1]['file_uri']
+            row.append(file_version_uri_2.encode("utf-8"))
+        except:
+            row.append("")
+            pass
+
+        try:
+            file_version_use_statement_2 = do_json['file_versions'][1]['use_statement']
+            row.append(file_version_use_statement_2)
+        except:
+            row.append("")
+            pass
+
+
         writer.writerow(row)
-        print 'Exporting: ' + file_version_uri.encode("utf-8")
+        print 'Exporting: ' + digital_object_URI + '--' + digital_object_identifier.encode("utf-8")
+
