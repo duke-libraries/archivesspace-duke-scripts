@@ -6,9 +6,6 @@ import getpass
 
 #This script is used to export metadata for digital objects from ASpace as CSV
 
-#Path to output CSV
-digital_object_export_csv = 'C:/Users/nh48/desktop/digital_objects_in_aspace.csv'
-
 #Prompt for authentication
 aspace_url = raw_input('Aspace backend URL: ')
 aspace_repo = raw_input('Repo number: ')
