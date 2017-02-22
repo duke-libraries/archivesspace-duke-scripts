@@ -32,6 +32,9 @@ else:
 session = auth["session"]
 headers = {'X-ArchivesSpace-Session':session}
 
+#Prompt for export path to CSV
+digital_object_export_csv = raw_input('Export path for CSV: ')
+
 digital_objects_list = requests.get(aspace_url+ '/repositories/' + aspace_repo + '/digital_objects?all_ids=true',headers=headers).json()
 
 with open(digital_object_export_csv,'wb') as csvfile:
