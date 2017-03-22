@@ -151,7 +151,10 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
             <xsl:value-of select="$tab"/>
 
             <!-- Scopecontent notes, comment out if you don't need these -->
-            <xsl:value-of select="normalize-space(ead:scopecontent[1]/ead:p)"/>
+            <xsl:for-each select="ead:scopecontent/ead:p">
+                <xsl:value-of select="normalize-space(.)"/>
+                <xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
+            </xsl:for-each>
             <xsl:value-of select="$tab"/>
 
             <!-- Item-level provenance info.  Infrequent, remove comment if neede
