@@ -99,11 +99,10 @@ Use with caution.
         <xsl:text>note2</xsl:text>
         <xsl:value-of select="$tab"/>
 
-        <xsl:text>ASpace_componentID</xsl:text>
-        <xsl:value-of select="$tab"/>
-        
         <xsl:text>DAO</xsl:text>
         <xsl:value-of select="$tab"/>
+        
+        <xsl:text>ASpace_refID</xsl:text>
         
 <!-- ################################################################## -->        
         
@@ -213,13 +212,13 @@ Use with caution.
             <xsl:text></xsl:text>
             <xsl:value-of select="$tab"/>
             
-            <!-- ASpace refID for Archival Object record, strip "aspace_" prefix from these values-->
-            <xsl:value-of select="replace(normalize-space(./@id),'aspace_','')"/>
-            <xsl:value-of select="$tab"/>
-            
+                       
             <!-- DAOs -->
             <xsl:value-of select="ead:did/ead:dao/@xlink:href"/>
             <xsl:value-of select="$tab"/>
+            
+            <!-- ASpace refID for Archival Object record, strip "aspace_" prefix from these values-->
+            <xsl:value-of select="replace(normalize-space(./@id),'aspace_','')"/>
             
             
 <!-- Get all the subject, name, and place name headings and separate with semicolons
