@@ -66,6 +66,9 @@ for rlid in rlids_list:
 		publish_status = resource_json["finding_aid_status"]
 		#If the finding aid status is already set to publish, just export the EAD
 		if "published" in publish_status:
+		# Set publish to 'true' for all levels, components, notes, etc.  Same as choosing "publish all" in staff UI
+			resource_publish_all = requests.post(baseURL + resource_uri + '/publish',headers=headers)
+			print eadID + '--resource and all children set to published' 
 			ead = requests.get(baseURL + id_uri_string + '.xml' +export_options, headers=headers).text
 		# Sets the location where the files should be saved
 			destination = 'C:/users/nh48/desktop/as_exports_temp/'
@@ -80,8 +83,9 @@ for rlid in rlids_list:
 		#Repost the Resource with the published status
 			resource_update = requests.post(baseURL + resource_uri,headers=headers,data=resource_data).json()
 			print eadID + '--reposted with publish status'
+		# Set publish to 'true' for all levels, components, notes, etc.  Same as choosing "publish all" in staff UI
 			resource_publish_all = requests.post(baseURL + resource_uri + '/publish',headers=headers)
-			print eadID + '--resource and all children published'
+			print eadID + '--resource and all children set to published'
 			ead = requests.get(baseURL + id_uri_string + '.xml' +export_options, headers=headers).text
 		# Sets the location where the files should be saved
 			destination = 'C:/users/nh48/desktop/as_exports_temp/'
