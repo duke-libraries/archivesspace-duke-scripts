@@ -64,11 +64,25 @@ for rlid in rlids_list:
 		eadID = resource_json["ead_id"]
 		#set publish_status variable to check for finding aid status values
 		publish_status = resource_json["finding_aid_status"]
-		#If the finding aid status is already set to publish, just export the EAD
+
+#If the resource has a repository processing note, print it out to console. Confirm that you want to proceed with publishing
+		try: 
+			repository_processing_note = resource_json["repository_processing_note"]
+			repository_processing_note != None
+			print "WARNING - Repository Processing Note: " + repository_processing_note
+			input = raw_input("Proceed anyway? y/n?")
+			if input == "n":
+				break
+			else:
+				continue
+		except:
+			pass
+
+#If the finding aid status is already set to publish, just export the EAD
 		if "published" in publish_status:
 		# Set publish to 'true' for all levels, components, notes, etc.  Same as choosing "publish all" in staff UI
 			resource_publish_all = requests.post(baseURL + resource_uri + '/publish',headers=headers)
-			print eadID + '--resource and all children set to published' 
+			print eadID + '--resource and all children set to published'
 			ead = requests.get(baseURL + id_uri_string + '.xml' +export_options, headers=headers).text
 		# Sets the location where the files should be saved
 			destination = 'C:/users/nh48/desktop/as_exports_temp/'
@@ -76,8 +90,10 @@ for rlid in rlids_list:
 			f.write(ead.encode('utf-8'))
 			f.close
 			print eadID + '.xml' ' | ' + resource_id + ' | ' + aspace_id_short + ' | ' + last_modified_by + ' | ' + user_mtime_slice + ' | ' + 'exported'
+
+#If not published, set finding aid status to published
 		else:
-		#If not published, set finding aid status to published
+			print "Finding aid status: " + publish_status
 			resource_json['finding_aid_status'] = 'published'
 			resource_data = json.dumps(resource_json)
 		#Repost the Resource with the published status
