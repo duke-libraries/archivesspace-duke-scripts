@@ -74,7 +74,7 @@ for rlid in rlids_list:
 			if input == "n":
 				break
 			else:
-				continue
+				pass
 		except:
 			pass
 

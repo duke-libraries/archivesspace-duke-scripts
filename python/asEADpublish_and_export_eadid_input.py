@@ -75,7 +75,7 @@ for eadid in eadids_list:
 			if input == "n":
 				break
 			else:
-				continue
+				pass
 		except:
 			pass
 
