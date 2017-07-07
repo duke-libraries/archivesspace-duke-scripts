@@ -3,6 +3,7 @@ import json
 import csv
 import os
 import getpass
+import ConfigParser
 
 # Script currently updates archival object titles and dates using three column CSV input file
 # Column 1 contains the AO ref_id
@@ -25,28 +26,24 @@ archival_object_csv = os.path.normpath("c:/users/nh48/desktop/ASpace_api_scratch
 # information as the starting csv, plus the ArchivesSpace URIs for the updated archival objects
 updated_archival_object_csv = os.path.normpath("c:/users/nh48/desktop/ASpace_api_scratch/ao_updates/processed/aos_updated.csv")
 
-#Prompt for backend URL ( e.g. http://localhost:8089) and login credentials
-aspace_url = raw_input('ASpace backend URL: ')
-repo_id = raw_input('Repo ID: ')
-username = raw_input('Username: ')
-password = getpass.getpass(prompt='Password: ')
+# local config file, contains variables
+configFilePath = 'local_settings.cfg'
+config = ConfigParser.ConfigParser()
+config.read(configFilePath)
 
-#Option to harcode authentication info, comment out lines above.
-#aspace_url = 'http://localhost:8089' #Backend URL for ASpace
-#username= 'username'
-#password = 'password'
+# URL parameters dictionary, used to manage common URL patterns
+dictionary = {'baseURL': config.get('ArchivesSpace', 'baseURL'), 'repository':config.get('ArchivesSpace', 'repository'), 'user': config.get('ArchivesSpace', 'user'), 'password': config.get('ArchivesSpace', 'password')}
+baseURL = '{baseURL}'.format(**dictionary)
+repositoryBaseURL = '{baseURL}/repositories/{repository}/'.format(**dictionary)
+repository = '{repository}'.format(**dictionary)
 
-#Login to ASpace backend and store the session token and some header info
-auth = requests.post(aspace_url+'/users/'+username+'/login?password='+password).json()
+# authenticates the session
+auth = requests.post('{baseURL}/users/{user}/login?password={password}&expiring=false'.format(**dictionary)).json()
 session = auth["session"]
-headers = {'X-ArchivesSpace-Session':session}
 
-if auth.get("session") == None:
-    print "Wrong username or password! Try Again"
-    exit()
-else:
-#print authentication confirmation
-    print "Hello " + auth["user"]["name"] 
+#if auth.status_code == 200:
+print "Authenticated!"
+headers = {'X-ArchivesSpace-Session':session}
 
 #Open the CSV file and iterate through each row
 with open(archival_object_csv,'rb') as csvfile:
@@ -66,7 +63,7 @@ with open(archival_object_csv,'rb') as csvfile:
 
         # Use the find_by_id endpoint (only availble in v1.5+) to  use the ref_ID in the CSV to retrieve the archival object's URI
         params = {"ref_id[]":ref_id}
-        lookup = requests.get(aspace_url+'/repositories/'+repo_id+'/find_by_id/archival_objects',headers=headers, params=params).json()
+        lookup = requests.get(baseURL+'/repositories/'+repository+'/find_by_id/archival_objects',headers=headers, params=params).json()
 
         
         # Grab the archival object uri from the search results
@@ -75,7 +72,7 @@ with open(archival_object_csv,'rb') as csvfile:
         print 'Archival Object: ' + archival_object_uri
 
         # Submit a get request for the archival object and store the JSON
-        archival_object_json = requests.get(aspace_url+archival_object_uri,headers=headers).json()
+        archival_object_json = requests.get(baseURL+archival_object_uri,headers=headers).json()
 
         #print the JSON reponse to see structure and figure out where you might want to add other notes or metadata values, etc.
         #print archival_object_json
@@ -107,7 +104,7 @@ with open(archival_object_csv,'rb') as csvfile:
             #print archival_object_data
 
             #Repost the archival object containing the new title
-            archival_object_update = requests.post(aspace_url+archival_object_uri,headers=headers,data=archival_object_data).json()
+            archival_object_update = requests.post(baseURL+archival_object_uri,headers=headers,data=archival_object_data).json()
 
             #print confirmation that archival object was updated. Response should contain any warnings
             print 'Status: ' + archival_object_update['status']
