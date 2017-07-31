@@ -1,5 +1,5 @@
 SELECT 
-    COUNT(*) AS 'Total accessions in linear feet',
+    COUNT(*) AS 'Total accessions',
     COUNT(CASE
         WHEN accession.identifier LIKE '%ua%' THEN 1
         ELSE NULL
