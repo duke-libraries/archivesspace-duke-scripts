@@ -1,4 +1,5 @@
-SELECT 
+SELECT
+    accession.id
     accession.identifier,
     accession.title,
     accession.accession_date,
