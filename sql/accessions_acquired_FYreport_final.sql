@@ -1,5 +1,5 @@
 SELECT
-    accession.id
+    accession.id,
     accession.identifier,
     accession.title,
     accession.accession_date,
