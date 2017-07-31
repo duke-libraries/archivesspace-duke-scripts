@@ -131,7 +131,7 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
 
 
             <!-- any other kind of physical description if present -->
-            <xsl:value-of select="normalize-space(ead:did/ead:physdesc[not(ead:extent)])"/>
+            <xsl:value-of select="normalize-space(ead:did/ead:physdesc[not(ead:extent)][1])"/>
             <xsl:value-of select="$tab"/>
 
             <!-- Placeholder column, values to be supplied in spreadsheet after digitization -->
