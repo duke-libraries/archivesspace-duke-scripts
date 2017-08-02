@@ -11,3 +11,5 @@
 **extent_accessioned_by_acquisition_type.sql** - SQL script that queries ASpace SQL database and generates a report showing extent (number and linear_feet) of accessions by acqusition type (gift, purchase, etc.).
 
 **extent_accessioned_by_research_center.sql** - SQL script that queries ASpace SQL database and generates a report showing extent (number and linear_feet) of accessions by Rubenstein Library research center (Hartman, Bingham, Franklin, etc.)
+
+**accession_resource_relationship.sql** - SQL script that queries ASpace database and pulls selected fields for all accession records, including any linked resource records IDs and titles.
