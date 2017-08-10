@@ -39,6 +39,9 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
         <xsl:text>Container_3</xsl:text>
         <xsl:value-of select="$tab"/>
 
+		<xsl:text>UnitID</xsl:text>
+        <xsl:value-of select="$tab"/>
+		
         <xsl:text>Title</xsl:text>
         <xsl:value-of select="$tab"/>
 
@@ -114,6 +117,8 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
             <xsl:value-of select="normalize-space(ead:did/ead:container[3])"/>
             <xsl:value-of select="$tab"/>
 
+            <xsl:value-of select="ead:did/ead:unitid"/>
+            <xsl:value-of select="$tab"/>
 
             <!-- Folder/file/item title -->
             <xsl:value-of select="normalize-space(ead:did/ead:unittitle)"/>
