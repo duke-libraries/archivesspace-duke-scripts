@@ -14,7 +14,7 @@ import ConfigParser
 accession_updater_csv = os.path.normpath("c:/users/nh48/desktop/ASpace_api_scratch/accession_updates/accession_updates.csv")
 
 # The accessions_updated.csv will be an updated csv that will be created at the end of this script, containing all of the same
-# information as the starting csv, plus the ArchivesSpace URIs for the updated archival objects
+# information as the starting csv, plus the ArchivesSpace URIs for the updated accession records
 accessions_updated_csv = os.path.normpath("c:/users/nh48/desktop/ASpace_api_scratch/accession_updates/processed/accessions_updated.csv")
 
 # local config file, contains variables
