@@ -60,19 +60,19 @@ with open(accession_updater_csv,'rb') as csvfile:
 
           print accession_info
 
-        #UPDATE FIELD BELOW AS NECESSARY
+#UPDATE FIELD BELOW AS NECESSARY
           accession_json['user_defined']['enum_2'] = updated_value
 
           accession_data = json.dumps(accession_json)
 
-        #Repost the archival object containing the new title
+        #Repost the updated accession record
           accession_update = requests.post(baseURL+accession_uri,headers=headers,data=accession_data).json()
 
-        #print confirmation that archival object was updated. Response should contain any warnings
+        #print confirmation that accession was updated. Response should contain any warnings
           print 'Status: ' + accession_update['status']
           row.append(accession_update['status'])
 
-          # Write a new CSV with all the info from the initial csv + the ArchivesSpace uris for the updated archival objects
+          # Write a new CSV with all the info from the initial csv + the ArchivesSpace uris for the updated accessions
          
 
         except:
