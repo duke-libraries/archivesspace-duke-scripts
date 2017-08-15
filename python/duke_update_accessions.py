@@ -41,14 +41,11 @@ with open(accession_updater_csv,'rb') as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
 
-        # Grab the archival object's ArchivesSpace ref_id from the CSV
+        # Grab the accession ID from the CSV
         accession_id = row[0] #column 1
 
         #Grab the value you want to update from the CSV
         updated_value = row[1] #column 2 in CSV
-
-        #Grab the new date from the CSV
-        #new_ao_date = row[2]
 
         #Lookup accession by URI
         #params = {"ref_id[]":ref_id}
