@@ -31,7 +31,7 @@ print "Authenticated!"
 headers = {'X-ArchivesSpace-Session':session}
 
 #number components and include DAOs
-export_options = '?numbered_cs=true&?include_daos=true&?include_unpublished=false'
+export_options = '?numbered_cs=true&include_daos=true&include_unpublished=false'
 
 
 # Exports EAD for all resources in repositories/2 where finding_aid_status = "published"

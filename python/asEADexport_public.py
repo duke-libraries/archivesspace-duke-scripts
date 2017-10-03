@@ -20,7 +20,7 @@ session = auth["session"]
 headers = {'X-ArchivesSpace-Session':session}
 
 #number components and include DAOs
-export_options = '?numbered_cs=true&?include_daos=true&?include_unpublished=false'
+export_options = '?numbered_cs=true&include_daos=true&include_unpublished=false'
 
 # Gets the IDs of all resources in the repository
 resourceIds = requests.get(baseURL + '/repositories/'+repository+'/resources?all_ids=true', headers=headers)

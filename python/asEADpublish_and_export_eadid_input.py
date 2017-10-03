@@ -31,8 +31,7 @@ print "Authenticated!"
 headers = {'X-ArchivesSpace-Session':session}
 
 #set EAD export options: number components and include DAOs
-export_options = '?numbered_cs=true&?include_daos=true&?include_unpublished=false'
-
+export_options = '?include_daos=true&numbered_cs=true&include_unpublished=true'
 
 # Exports EAD for all resources matching EADID input repository
 for eadid in eadids_list:
