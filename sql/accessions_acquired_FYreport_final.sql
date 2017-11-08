@@ -10,6 +10,8 @@ SELECT
     ev2.value AS research_center,
     ev1.value AS primary_collector,
     accession.content_description,
+    accession.provenance,
+    accession.general_note,
     accession.access_restrictions_note,
     accession.use_restrictions_note,
     user_defined.real_1 AS 'appraisal_value',
