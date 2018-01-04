@@ -13,3 +13,5 @@
 **extent_accessioned_by_research_center.sql** - SQL script that queries ASpace SQL database and generates a report showing extent (number and linear_feet) of accessions by Rubenstein Library research center (Hartman, Bingham, Franklin, etc.)
 
 **accession_resource_relationship.sql** - SQL script that queries ASpace database and pulls selected fields for all accession records, including any linked resource records IDs and titles.
+
+**access_restriction_notes_on_aos.sql** - SQL script th at queries ASpace database and pulls all access restriction notes attached to archival_objects. Results will include JSON blob of note text along with some additional columns of information about the archival objects and parent resource record.
