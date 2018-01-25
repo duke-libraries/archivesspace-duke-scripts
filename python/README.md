@@ -4,11 +4,9 @@
 
 **asEADexport_public.py** - Python script to batch export all EADs from a specified repository where finding_aid_status=published and save those EADs to a specified location using the <eadid> value as the filename. Can configure export parameters (include DAOs, unpublished, etc.). Usernames, passwords, and repository URLs have been removed. Adapted from: https://gist.github.com/helrond/1ef5b5bd47b47bd52f02
 
-**asEADexport_eadid_input.py** - Python script to batch export EADs based on eadid input. Prompts for a list of eadid values separated with commas (e.g. eadid1,eadid2,eadid3). Will export EADs for all eadids provided if marked "published" in ASpace. Script relies on a config file (local_settings.cfg) that contains repository URL, username, password.
+**asEADexport_eadid_input.py** - Python script to batch export EADs based on eadid input. Prompts for a list of eadid values separated with commas (e.g. eadid1,eadid2,eadid3). Will export EADs for all eadids provided if marked "published" in ASpace. Script requires a config file (local_settings.cfg) in the same directory that contains the backend URL, username, password.
 
-**asEADpublish_and_export_eadid_input.py** - Python script (similar to above) that exports EADs based on eadid input. Prompts for list of eadid values separated with commas. Checks to see if a resource's finding aid status is 'published'.  If so, it exports the EAD to a spficied location, if not, it sets the finding aid status to "published" AND publishes the resource and all components.  Then, it exports the modified EAD.  See comments in script for more details.
-
-For example:
+Example of local_settings.cfg:
 ```
 [ArchivesSpace]
 baseURL:http://aspace-backend-url.lib.duke.edu
@@ -16,6 +14,8 @@ repository:1
 user:admin
 password:adminpassword
 ```
+
+**asEADpublish_and_export_eadid_input.py** - Python script (similar to above) that exports EADs based on eadid input. Prompts for list of eadid values separated with commas. Checks to see if a resource's finding aid status is 'published'.  If so, it exports the EAD to a spficied location, if not, it sets the finding aid status to "published" AND publishes the resource and all components.  Then, it exports the modified EAD.  See comments in script for more details.
 
 **asUpdateDAOs.py** - ONLY WORKS WITH ARCHIVESSPACE v.1.5+. A python script used to update Digital Object identifiers and file version URIs in ASpace based on an input CSV with refIDs for the the linked Archival Object.  Input is a five column CSV (without column headers) that includes: #[old file version use statement],[old file version URI],[new file version URI],[ASpace ref_id],[ark identifier in DDR (e.g. ark:/87924/r34j0b091)].
 
