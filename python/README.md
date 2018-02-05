@@ -29,3 +29,5 @@ This script is adapted from: https://github.com/djpillen/bentley_scripts/blob/ma
 **duke_as_replace_notes.py** - Python script that reads CSV, finds notes, and replaces existing note text with new text provided in CSV. Primarily used to clean up accessrestrict notes. Script slightly modified from script provided by Alicia Detelich (Yale Manuscripts and Archives)
 
 **duke_as_replace_notes_restrictions.py** - Python script that reads CSV, finds restriction notes, and replaces note text while supplying a local access restriction type and a restriction end date from the input CSV.
+
+**duke_update_archival_object_containers.py** - Python script that batch updates archival objects with new top containers. Input is a CSV with three columns: Archival Object URI, old top container URI, and new top container URI.
