@@ -18,8 +18,8 @@ with open(output_file, "w") as file:
 		#Start writing XML file
 		file.write('<?xml version="1.0" encoding="UTF-8"?>\n\t<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
 
-		for files in glob.glob("*.xml"):
-
+		for files in sorted(glob.glob("*.xml")):
+				
 				content = ET.parse(files)
 				namespace = "{urn:isbn:1-931666-22-9}"
 				eadid = content.find('.//{0}eadid'.format(namespace))
@@ -32,7 +32,7 @@ with open(output_file, "w") as file:
 						controlaccesslist = list(controlaccess.itertext())
 						textstring = ''.join(controlaccesslist)
 						#print textstring
-						if 'Medicine' in textstring or 'medicine' in textstring or 'Physician' in textstring or 'physician' in textstring:
+						if 'Medicine' in textstring or 'medicine' in textstring or 'Medical' in textstring or 'medical' in textstring or 'Physician' in textstring or 'physician' in textstring or 'Public health' in textstring:
 							print lastmod + ' | ' + url
 							file.write("\n\t\t<url>\n\t\t\t<loc>{0}</loc>\n\t\t\t<lastmod>{1}</lastmod>\n\t\t</url>".format(url, lastmod))
 				except:
