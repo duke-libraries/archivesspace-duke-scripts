@@ -5,6 +5,7 @@ import requests
 import json
 import re
 import ConfigParser
+import time
 
 
 # local config file, contains variables
@@ -83,6 +84,9 @@ for rlid in rlids_list:
 		# Set publish to 'true' for all levels, components, notes, etc.  Same as choosing "publish all" in staff UI
 			resource_publish_all = requests.post(baseURL + resource_uri + '/publish',headers=headers)
 			print eadID + '--resource and all children set to published'
+		#Pause for 5 seconds so publish action takes effect
+			print "Pausing for 5 seconds to publish..."
+			time.sleep(5.0)
 			ead = requests.get(baseURL + id_uri_string + '.xml' +export_options, headers=headers).text
 		# Sets the location where the files should be saved
 			destination = 'C:/users/nh48/desktop/as_exports_temp/'
@@ -102,6 +106,9 @@ for rlid in rlids_list:
 		# Set publish to 'true' for all levels, components, notes, etc.  Same as choosing "publish all" in staff UI
 			resource_publish_all = requests.post(baseURL + resource_uri + '/publish',headers=headers)
 			print eadID + '--resource and all children set to published'
+		#Pause for 5 seconds so publish action takes effect
+			print "Pausing for 5 seconds to publish..."
+			time.sleep(5.0)
 			ead = requests.get(baseURL + id_uri_string + '.xml' +export_options, headers=headers).text
 		# Sets the location where the files should be saved
 			destination = 'C:/users/nh48/desktop/as_exports_temp/'
