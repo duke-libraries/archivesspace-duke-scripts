@@ -150,7 +150,7 @@ Use with caution.
             <xsl:value-of select="$tab"/>
 
             <!-- Subseries number -->
-            <xsl:value-of select="normalize-space(ancestor::ead:*[@level = 'subseries'][1]/ead:did/ead:unitid)"/>
+            <xsl:value-of select="ancestor::ead:*[@level = 'subseries'][1]/ead:did/ead:unitid"/>
             <xsl:value-of select="$tab"/>
             
             <!-- Subseries Title -->
@@ -161,13 +161,12 @@ Use with caution.
             <xsl:value-of select="normalize-space(ancestor::ead:*[@level = 'subseries'][1]/ead:did/ead:unitdate)"/>
             <xsl:value-of select="$tab"/>
 
-
-            <!-- c0x level  -->
+            <!-- c0x level. For making sense out of highly nested organization -->
             <xsl:value-of select="local-name()"/>
             <xsl:value-of select="$tab"/>
             
-            <!-- file or item title -->
-            <xsl:value-of select="normalize-space(ead:did/ead:unitid)"/>
+            <!-- file or item ID -->
+            <xsl:value-of select="ead:did/ead:unitid"/>
             <xsl:value-of select="$tab"/>
 
             <!-- file or item title -->
@@ -183,11 +182,23 @@ Use with caution.
             <xsl:value-of select="$tab"/>
 
             <!-- any other kind of physical description if present -->
-            <xsl:value-of select="normalize-space(ead:did/ead:physdesc[not(ead:extent)])"/>
+            <xsl:variable name="physdesc">
+                <xsl:for-each select="ead:did/ead:physdesc[not(ead:extent)]">
+                    <xsl:value-of select="normalize-space(.)"/>
+                    <xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
+                </xsl:for-each>
+            </xsl:variable>
+            <xsl:value-of select="$physdesc"/>
             <xsl:value-of select="$tab"/>
 
             <!-- controlled extent statement, typically # of items or pages -->
-            <xsl:value-of select="normalize-space(ead:did/ead:physdesc/ead:extent[1])"/>
+            <xsl:variable name="extent">
+                <xsl:for-each select="ead:did/ead:physdesc/ead:extent">
+                    <xsl:value-of select="normalize-space(.)"/>
+                    <xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
+                </xsl:for-each>
+            </xsl:variable>
+            <xsl:value-of select="$extent"/>
             <xsl:value-of select="$tab"/>
 
             <!-- Access restriction note -->
