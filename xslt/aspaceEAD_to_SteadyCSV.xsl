@@ -6,7 +6,7 @@
 
     <!-- This XSLT is used to transform EAD exported from ArchivesSpace into a TSV.
 The TSV can be opened and edited in Excel or Google Sheets, saved as a CSV.
-CSV can be submitted to Steady service to convert to EAD, suitable for import into ASpace.
+CSV can be submitted to Steady service (https://sleepy-ocean-6616.herokuapp.com/) to convert to EAD, suitable for import into ASpace.
 Allows a rudimentary form of EAD to Excel to EAD roundtripping in ASpace.
 Use with caution.
 -->
