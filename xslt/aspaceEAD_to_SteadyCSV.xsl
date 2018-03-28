@@ -109,7 +109,7 @@ Use with caution.
         <!-- Begin Data Rows -->
         <xsl:value-of select="$newline"/>
 
-        <!-- might need to manipulate resulting sheet if collection contains both file and item-level components -->
+        <!-- might need to edit this if you want to export a row for something other than file and item level components -->
         <xsl:for-each select="//ead:*[@level = 'file']|//ead:*[@level = 'item']">
 
             <!-- Hardcode mixed_materials -->
