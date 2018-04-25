@@ -31,3 +31,5 @@ This script is adapted from: https://github.com/djpillen/bentley_scripts/blob/ma
 **duke_as_replace_notes_restrictions.py** - Python script that reads CSV, finds restriction notes, and replaces note text while supplying a local access restriction type and a restriction end date from the input CSV.
 
 **duke_update_archival_object_containers.py** - Python script that batch updates archival objects with new top containers. Input is a CSV with three columns: Archival Object URI, old top container URI, and new top container URI.
+
+**as_change_ao_level.py** - Python script that takes 2-column input CSV (AO ID, desired_level) and updates level of description values in ASpace accordingly, writing log to output CSV.

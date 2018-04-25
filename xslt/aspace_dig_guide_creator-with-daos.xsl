@@ -143,7 +143,8 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
             <xsl:value-of select="$tab"/>
    
             <!-- only DPCID form URI -->
-            <xsl:value-of select="replace(ead:did/ead:dao/@xlink:href,'.*/(.*)/$','$1')"/>
+            <!-- <xsl:value-of select="replace(ead:did/ead:dao/@xlink:href,'.*/(.*)/$','$1')"/> -->
+            <xsl:value-of select="ead:did/ead:dao/@xlink:href"/>
             
             <xsl:value-of select="$tab"/>
 
