@@ -6,7 +6,7 @@
 
     <!-- This XSLT is used to transform EAD exported from ArchivesSpace into a TSV.
 The TSV can be opened and edited in Excel or Google Sheets, saved as a CSV.
-CSV can be submitted to Steady service to convert to EAD, suitable for import into ASpace.
+CSV can be submitted to Steady service (https://sleepy-ocean-6616.herokuapp.com/) to convert to EAD, suitable for import into ASpace.
 Allows a rudimentary form of EAD to Excel to EAD roundtripping in ASpace.
 Use with caution.
 -->
@@ -109,7 +109,7 @@ Use with caution.
         <!-- Begin Data Rows -->
         <xsl:value-of select="$newline"/>
 
-        <!-- might need to manipulate resulting sheet if collection contains both file and item-level components -->
+        <!-- might need to edit this if you want to export a row for something other than file and item level components -->
         <xsl:for-each select="//ead:*[@level = 'file']|//ead:*[@level = 'item']">
 
             <!-- Hardcode mixed_materials -->
