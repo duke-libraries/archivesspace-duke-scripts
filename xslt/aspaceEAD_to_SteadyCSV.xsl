@@ -146,7 +146,7 @@ Use with caution.
             <xsl:value-of select="$tab"/>
 
             <!-- Series date expression-->
-            <xsl:value-of select="normalize-space(ancestor::ead:*[@level = 'series'][1]/ead:did/ead:unitdate)"/>
+            <xsl:value-of select="normalize-space(ancestor::ead:*[@level = 'series'][1]/ead:did/ead:unitdate[@type='inclusive'])"/>
             <xsl:value-of select="$tab"/>
 
             <!-- Subseries number -->
