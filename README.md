@@ -1,3 +1,3 @@
 # archivesspace-duke-scripts
-Various scripts to process ArchivesSpace EAD exports, interact with the ArchivesSpace API, or query backend ASpace SQL database for reports.
+Various utility scripts to batch process records using the ArchivesSpace API, process ArchivesSpace EAD exports, or query backend ArchivesSpace SQL database for reports.
 
