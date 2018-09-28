@@ -8,6 +8,10 @@ import datetime
 import csv
 
 
+# Script generates a report of new and updated finding aids (and counts) since the date specified using a very convoluted process that only makes sense at Duke
+# Script takes as input a .txt file with a list of new EADIDs, the path to published EADs at Duke,the beginning date of the quarter, and a destination path to save the report.
+
+
 # local config file, contains variables
 configFilePath = 'local_settings.cfg'
 config = ConfigParser.ConfigParser()
