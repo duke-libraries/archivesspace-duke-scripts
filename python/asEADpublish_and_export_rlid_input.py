@@ -32,8 +32,7 @@ print "Authenticated!"
 headers = {'X-ArchivesSpace-Session':session}
 
 #set EAD export options: number components and include DAOs
-export_options = '?numbered_cs=true&include_daos=true&include_unpublished=false'
-
+export_options = '?include_daos=true&numbered_cs=true&include_unpublished=false'
 
 # Exports EAD for all resources matching EADID input repository
 for rlid in rlids_list:
@@ -67,7 +66,7 @@ for rlid in rlids_list:
 		publish_status = resource_json["finding_aid_status"]
 
 #If the resource has a repository processing note, print it out to console. Confirm that you want to proceed with publishing
-		try: 
+		try:
 			repository_processing_note = resource_json["repository_processing_note"]
 			repository_processing_note != None
 			print "WARNING - Repository Processing Note: " + repository_processing_note
@@ -85,8 +84,9 @@ for rlid in rlids_list:
 			resource_publish_all = requests.post(baseURL + resource_uri + '/publish',headers=headers)
 			print eadID + '--resource and all children set to published'
 		#Pause for 5 seconds so publish action takes effect
-			print "Pausing for 5 seconds to publish..."
+			print "Pausing for 5 seconds to index publish action..."
 			time.sleep(5.0)
+			print "Exporting EAD file..."
 			ead = requests.get(baseURL + id_uri_string + '.xml' +export_options, headers=headers).text
 		# Sets the location where the files should be saved
 			destination = 'C:/users/nh48/desktop/as_exports_temp/'
@@ -98,17 +98,19 @@ for rlid in rlids_list:
 #If not published, set finding aid status to published
 		else:
 			print "Finding aid status: " + publish_status
-			resource_json['finding_aid_status'] = 'published'
-			resource_data = json.dumps(resource_json)
-		#Repost the Resource with the published status
-			resource_update = requests.post(baseURL + resource_uri,headers=headers,data=resource_data).json()
-			print eadID + '--reposted with publish status'
-		# Set publish to 'true' for all levels, components, notes, etc.  Same as choosing "publish all" in staff UI
 			resource_publish_all = requests.post(baseURL + resource_uri + '/publish',headers=headers)
 			print eadID + '--resource and all children set to published'
-		#Pause for 5 seconds so publish action takes effect
-			print "Pausing for 5 seconds to publish..."
+			print "Pausing for 5 seconds to index publish action..."
 			time.sleep(5.0)
+			resource_json['finding_aid_status'] = 'published'
+			resource_data = json.dumps(resource_json)
+			#Repost the Resource with the published status
+			resource_update = requests.post(baseURL + resource_uri,headers=headers,data=resource_data).json()
+			print eadID + '--reposted resource with finding aid status = published'
+		#Pause for 5 seconds so publish action takes effect
+			print "Pausing for 5 seconds to index reposted resource..."
+			time.sleep(5.0)
+			print "Exporting EAD file..."
 			ead = requests.get(baseURL + id_uri_string + '.xml' +export_options, headers=headers).text
 		# Sets the location where the files should be saved
 			destination = 'C:/users/nh48/desktop/as_exports_temp/'
@@ -118,3 +120,5 @@ for rlid in rlids_list:
 			print eadID + '.xml' ' | ' + resource_id + ' | ' + aspace_id_short + ' | ' + last_modified_by + ' | ' + user_mtime_slice + ' | ' + 'exported'
 	else:
 		print '***ERROR***: ' + eadid + ' does not exist!'
+
+raw_input("Press Enter to Exit")
