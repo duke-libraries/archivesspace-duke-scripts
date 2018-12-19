@@ -17,3 +17,5 @@
 **access_restriction_notes_on_aos.sql** - SQL script that queries ASpace database and pulls all access restriction notes attached to archival_objects. Results will include JSON blob of note text along with some additional columns of information about the archival objects and parent resource record.
 
 **total_extent_accessioned_linear_feet_by_quarter.sql** - SQL script that queries ASpace database and pulls a report of the total amount of linear feet accessioned in a given time period, broken out by year and quarter. This script is used to populate annual manuscript acquisition metrics spreadsheets in Rubenstein.
+
+**resource_report.sql** - SQL script that queries ASpace database for list of resource records matching certain criteria. Returns select metadata for each resource as well as concatenated related accession information for each resource row returned.
