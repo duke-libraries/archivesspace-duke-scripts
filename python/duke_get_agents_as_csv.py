@@ -33,7 +33,7 @@ agent_families_export_csv = raw_input('Export path for Family Agents CSV: ')
 with open(agent_corporate_export_csv,'wb') as corpname_csvfile:
     writer = csv.writer(corpname_csvfile)
     #write CSV header row
-    writer.writerow(["uri", "sort_name", "source", "rules", "sort_name_auto_generate"])
+    writer.writerow(["uri", "used_in_repo", "sort_name", "source", "rules", "sort_name_auto_generate"])
 
 #Get all agent corporate entity IDs
     print 'Getting all agent_corporate IDs'
@@ -41,6 +41,7 @@ with open(agent_corporate_export_csv,'wb') as corpname_csvfile:
     for id in sorted(agent_corporate_ids.json(), reverse=True):
         agent_corporate_json = requests.get(baseURL + '/agents/corporate_entities/' + str(id), headers=headers).json()
         agent_corporate_uri = agent_corporate_json['uri']
+        used_in_repo = agent_corporate_json['used_within_repositories']
         agent_corporate_primary_name = agent_corporate_json['names'][0]['primary_name'].encode("utf-8")
         agent_corporate_sort_name = agent_corporate_json['names'][0]['sort_name'].encode("utf-8")
         #agent_corporate_display_name = agent_corporate_json['display_name'][0][''].encode("utf-8")
@@ -56,19 +57,20 @@ with open(agent_corporate_export_csv,'wb') as corpname_csvfile:
         agent_corporate_sort_name_auto_generate = agent_corporate_json['names'][0]['sort_name_auto_generate']
         #agent_contact_info_json = agent_corporate_json['agent_contacts']
         print agent_corporate_uri
-        row = [agent_corporate_uri, agent_corporate_sort_name, agent_corporate_source, agent_corporate_rules, agent_corporate_sort_name_auto_generate]
+        row = [agent_corporate_uri, used_in_repo, agent_corporate_sort_name, agent_corporate_source, agent_corporate_rules, agent_corporate_sort_name_auto_generate]
         writer.writerow(row)
 
 with open(agent_people_export_csv,'wb') as people_name_csvfile:
     writer = csv.writer(people_name_csvfile)
     #write CSV header row
-    writer.writerow(["uri", "sort_name", "source", "rules", "sort_name_auto_generate"])
+    writer.writerow(["uri", "used_in_repo", "sort_name", "source", "rules", "sort_name_auto_generate"])
 
     print 'Getting all agent_people IDs'
     agent_people_ids = requests.get(baseURL + '/agents/people?all_ids=true', headers=headers)
     for id in sorted(agent_people_ids.json(), reverse=True):
         agent_people_json = requests.get(baseURL + '/agents/people/' + str(id), headers=headers).json()
         agent_people_uri = agent_people_json['uri']
+        used_in_repo = agent_people_json['used_within_repositories']
         agent_people_primary_name = agent_people_json['names'][0]['primary_name'].encode("utf-8")
         agent_people_sort_name = agent_people_json['names'][0]['sort_name'].encode("utf-8")
         #agent_people_display_name = agent_people_json['display_name'][0][''].encode("utf-8")
@@ -84,19 +86,20 @@ with open(agent_people_export_csv,'wb') as people_name_csvfile:
         agent_people_sort_name_auto_generate = agent_people_json['names'][0]['sort_name_auto_generate']
         #agent_contact_info_json = agent_people_json['agent_contacts']
         print agent_people_uri
-        row = [agent_people_uri, agent_people_sort_name, agent_people_source, agent_people_rules, agent_people_sort_name_auto_generate]
+        row = [agent_people_uri, used_in_repo, agent_people_sort_name, agent_people_source, agent_people_rules, agent_people_sort_name_auto_generate]
         writer.writerow(row)
 
 with open(agent_families_export_csv,'wb') as family_name_csvfile:
     writer = csv.writer(family_name_csvfile)
     #write CSV header row
-    writer.writerow(["uri", "sort_name", "source", "rules", "sort_name_auto_generate"])
+    writer.writerow(["uri", "used_in_repo", "sort_name", "source", "rules", "sort_name_auto_generate"])
 
     print 'Getting all agent_families IDs'
     agent_families_ids = requests.get(baseURL + '/agents/families?all_ids=true', headers=headers)
     for id in sorted(agent_families_ids.json(), reverse=True):
         agent_families_json = requests.get(baseURL + '/agents/families/' + str(id), headers=headers).json()
         agent_families_uri = agent_families_json['uri']
+        used_in_repo = agent_families_json['used_within_repositories']
         agent_families_primary_name = agent_families_json['names'][0]['family_name'].encode("utf-8")
         agent_families_sort_name = agent_families_json['names'][0]['sort_name'].encode("utf-8")
         #agent_families_display_name = agent_families_json['display_name'][0][''].encode("utf-8")
@@ -112,5 +115,5 @@ with open(agent_families_export_csv,'wb') as family_name_csvfile:
         agent_families_sort_name_auto_generate = agent_families_json['names'][0]['sort_name_auto_generate']
         #agent_contact_info_json = agent_families_json['agent_contacts']
         print agent_families_uri
-        row = [agent_families_uri, agent_families_sort_name, agent_families_source, agent_families_rules, agent_families_sort_name_auto_generate]
+        row = [agent_families_uri, used_in_repo, agent_families_sort_name, agent_families_source, agent_families_rules, agent_families_sort_name_auto_generate]
         writer.writerow(row)
