@@ -5,7 +5,7 @@ import os
 import getpass
 
 
-#Script currently takes a CSV as input (with Aspace URI as first column--e.g. https://aspace.library.edu/repositories/2/archival_objects/1234) and deletes the record.
+#Script currently takes a CSV as input (with Aspace URI as first column--e.g. repositories/2/archival_objects/1234) and deletes the record.
 #Script also outputs separate CSV with initial data and an added column for delete status.
 
 #AUTHENTICATION STUFF:
