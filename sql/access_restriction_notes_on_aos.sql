@@ -4,7 +4,7 @@ SELECT
 	resource.ead_id,
 	note.archival_object_id,
 	/*CREATE url to link directly to AO*/
-	CONCAT('https://archivesspace-staff.lib.duke.edu/resources/',resource.id,'/edit#::archival_object_',archival_object.id) as link_to_ao,
+	CONCAT('https://archivesspace-staff.lib.duke.edu/resources/',resource.id,'/edit#tree::archival_object_',archival_object.id) as link_to_ao,
 	archival_object.display_string as archival_object_title,
 	archival_object.ref_id,
 	enumeration_value.value as level,
