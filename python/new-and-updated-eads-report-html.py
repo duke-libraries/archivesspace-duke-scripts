@@ -47,7 +47,7 @@ destination = raw_input('Save report to: ')
 f = open(destination+'new-ead-report'+today_date+'.html', 'w')
 
 #start writing out HTML file
-f.write("<html><head><h1>Finding Aid Report</h1></head><body><p><a href=\"#new\">New Finding Aids</a> | <a href=\"#updated\">Updated Finding Aids</a></p><h2><a name=\"new\"></a>New Finding Aids Posted {0} to {1}</h2>".format(quarter_start_date, quarter_end_date))
+f.write("<html><head><h1>Finding Aid Report</h1></head><body><p><a href=\"#new\">New Finding Aids</a> | <a href=\"#updated\">Updated Finding Aids</a> | <a href=\"#counts\">Counts</a></p><h2><a name=\"new\"></a>New Finding Aids Posted {0} to {1}</h2>".format(quarter_start_date, quarter_end_date))
 
 with open(new_eads_list,'rb') as csvfile:
 	reader = csv.reader(csvfile)
@@ -117,7 +117,7 @@ for root, dirs, filenames in os.walk(current_eads_path):
 					f.write("<div><p><a href=\"{1}\">{0}</a> (updated: {2})</p></div>".format(finding_aid_title, ead_location, modified_time_iso))
 
 #Write out some stats at the bottom
-f.write("<p>TOTAL NEW: {0}<br/>TOTAL UPDATED: {1}</p></body></html>".format(new_count, update_count))
+f.write("<p><a name=\"counts\">TOTAL NEW: {0}<br/>TOTAL UPDATED: {1}</a></p></body></html>".format(new_count, update_count))
 f.close
 
 print "All Done!!"
