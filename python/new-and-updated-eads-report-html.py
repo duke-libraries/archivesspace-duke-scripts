@@ -47,7 +47,7 @@ destination = raw_input('Save report to: ')
 f = open(destination+'new-ead-report'+today_date+'.html', 'w')
 
 #start writing out HTML file
-f.write("<html><head><h1>Finding Aid Report</h1></head><body><p><a href=\"#new\">New Finding Aids</a> | <a href=\"#updated\">Updated Finding Aids</a> | <a href=\"#counts\">Counts</a></p><h2><a name=\"new\"></a>New Finding Aids Posted {0} to {1}</h2>".format(quarter_start_date, quarter_end_date))
+f.write("<html><head><meta><title>Finding Aid Report</title></meta><h1><title>Finding Aid Report</title></h1></head><body><p><a href=\"#new\">New Finding Aids</a> | <a href=\"#updated\">Updated Finding Aids</a> | <a href=\"#counts\">Counts</a></p><h2><a name=\"new\"></a>New Finding Aids Posted {0} to {1}</h2>".format(quarter_start_date, quarter_end_date))
 
 with open(new_eads_list,'rb') as csvfile:
 	reader = csv.reader(csvfile)
