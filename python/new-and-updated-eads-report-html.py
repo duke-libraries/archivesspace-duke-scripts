@@ -7,6 +7,7 @@ import time
 import datetime
 import csv
 
+#Python 2.7
 
 # Script generates a report of new and updated finding aids (and counts) since the date specified using a very convoluted process that only makes sense at Duke
 # Script takes as input a .txt file with a list of new EADIDs, the path to published EADs at Duke,the beginning date of the quarter, and a destination path to save the report.
@@ -39,8 +40,8 @@ export_options = '?include_daos=true&numbered_cs=true&include_unpublished=false'
 #today's date
 today_date = datetime.datetime.today().strftime('%Y-%m-%d')
 
-quarter_start_date = raw_input("Quarter Start Date: ")
-quarter_end_date = raw_input("Quarter End Date: ")
+quarter_start_date = raw_input("Quarter Start Date (YYYY-MM-DD): ")
+quarter_end_date = raw_input("Quarter End Date (YYYY-MM-DD): ")
 
 #location to store text file of report
 destination = raw_input('Save report to: ')
@@ -61,7 +62,7 @@ with open(new_eads_list,'rb') as csvfile:
 
 		eadid_list.append(eadid)
 #advanced search for EADID
-		results = (requests.get(repositoryBaseURL + '/search?page=1&aq={\"query\":{\"field\":\"ead_id\",\"value\":\"'+eadid+'\",\"jsonmodel_type\":\"field_query\",\"negated\":false,\"literal\":false}}', headers=headers)).json()
+		results = requests.get(repositoryBaseURL + '/search?page=1&aq={\"query\":{\"field\":\"ead_id\",\"value\":\"'+eadid+'\",\"jsonmodel_type\":\"field_query\",\"negated\":false,\"literal\":false}}', headers=headers).json()
 
 #Make sure the EADID input matches an EADID value in ASpace
 		if results["total_hits"] is not 0:
@@ -91,6 +92,7 @@ with open(new_eads_list,'rb') as csvfile:
 f.write("<h2><a name=\"updated\"></a>Finding Aids Updated {0} to {1}</h2>".format(quarter_start_date, quarter_end_date))
 
 #Read over EAD directory and get files modified after specified date. Then, get finding aid URLs out of ASpace
+
 for root, dirs, filenames in os.walk(current_eads_path):
 	print "writing updated finding aids to HTML file..."
 	update_count = 0
@@ -99,6 +101,7 @@ for root, dirs, filenames in os.walk(current_eads_path):
 		eadid = filename.replace(".xml","")
 		modified_time = os.path.getmtime(filepath)
 		modified_time_iso = datetime.datetime.fromtimestamp(modified_time).strftime('%Y-%m-%d')
+		#print eadid + " | " + modified_time_iso
 
 		#exclude New finding aids
 		if eadid not in eadid_list:
@@ -106,6 +109,7 @@ for root, dirs, filenames in os.walk(current_eads_path):
 			#only get records modified during quarter (as specified at runtime)
 			if quarter_start_date <= modified_time_iso <= quarter_end_date:
 				update_count = update_count + 1
+				print eadid + " | " + modified_time_iso
 				results = (requests.get(repositoryBaseURL + '/search?page=1&aq={\"query\":{\"field\":\"ead_id\",\"value\":\"'+eadid+'\",\"jsonmodel_type\":\"field_query\",\"negated\":false,\"literal\":false}}', headers=headers)).json()
 				if results["total_hits"] is not 0:
 					#get the URI of the first search result (should only be one)
