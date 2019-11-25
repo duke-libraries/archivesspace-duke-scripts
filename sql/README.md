@@ -18,4 +18,8 @@
 
 **total_extent_accessioned_linear_feet_by_quarter.sql** - SQL script that queries ASpace database and pulls a report of the total amount of linear feet accessioned in a given time period, broken out by year and quarter. This script is used to populate annual manuscript acquisition metrics spreadsheets in Rubenstein.
 
+**level1_accessions_by_quarter.sql** - SQL script that queries ASpace database and pulls a report of the total amount of linear feet accessioned (and assigned Processing Status of Completed_Level1) in a given time period, broken out by year and quarter. This script is used to populate annual manuscript acquisition metrics spreadsheets in Rubenstein.
+
+**new_and_L1_accessions_by_quarter.sql** - SQL script that queries ASpace database and pulls a report of count and LF totals of accessions assigned Processing Status of 'New-unprocessed' or 'completed_level1' in a given time period. Results are broken out by year and quarter. This script is used to populate annual manuscript acquisition metrics spreadsheets in Rubenstein.
+
 **resource_report.sql** - SQL script that queries ASpace database for list of resource records matching certain criteria. Returns select metadata for each resource as well as concatenated related accession information for each resource row returned.
