@@ -84,7 +84,7 @@ for file in new_files:
     abstract = root.find(".//{0}archdesc/{0}did/{0}abstract".format(namespace)).text
     
     #write a <div> for every new EAD
-    f.write("<div><h3><a href=\"{3}\">{0}, {1}</a> ({1})</h3><p>{4}</p><hr></div>".format(finding_aid_title, finding_aid_dates, extent, ead_location, abstract))
+    f.write("<div><h3><a href=\"{3}\">{0}, {1}</a> ({2})</h3><p>{4}</p><hr></div>".format(finding_aid_title, finding_aid_dates, extent, ead_location, abstract))
 
 #Updated Finding Aid Section Header
 f.write("<h2><a name=\"updated\"></a>Updated Finding Aids ({0} to {1})</h2>".format(quarter_start_date, quarter_end_date))
