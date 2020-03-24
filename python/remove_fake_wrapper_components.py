@@ -2,11 +2,11 @@
 #Prior to running script, run SQL query on AS database to obtain AO ids for fake wrapper components (e.g. title = "container list")
 
 #When executed, this script:
-#1) iterates over input CSV of AO IDs
-#2) checks to make sure they are the only direct children of resource
-#3) locate their child components and their positions
-#4) Posts those children back as direct children of the resource
-#5) Deletes the fake wrapper component
+#1) iterates over input CSV of archival object IDs
+#2) checks to make sure the input AOs are the only direct children of a resource record
+#3) locates the direct child components of the input AOs and their positions
+#4) Posts those children back as direct children of the resource record (and not the AO)
+#5) Deletes the fake wrapper AO component
 #6) Checks to see if resource's finding aid status= published. If so, exports EAD and saves to location
 #7) Outputs a CSV that includes all data in original CSV plus some additional columns for reporting
 
