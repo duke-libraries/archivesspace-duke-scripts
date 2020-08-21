@@ -94,10 +94,6 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
 
         <!-- Empty column, to be supplied after URI is established, ARKs? -->
         <xsl:text>Digital_Object_URI</xsl:text>
-  
-
-
-
 
         <!-- Begin Data Rows -->
         <xsl:value-of select="$newline"/>
