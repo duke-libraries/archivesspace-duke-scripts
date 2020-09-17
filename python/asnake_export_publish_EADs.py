@@ -19,7 +19,7 @@ configFilePath = 'asnake_local_settings.cfg'
 config = configparser.ConfigParser()
 config.read(configFilePath)
 
-#Read variables from anake_local_settings.cfg
+#Read variables from asnake_local_settings.cfg
 AS_username = config.get('ArchivesSpace','user')
 AS_password = config.get('ArchivesSpace','password')
 AS_api_url = config.get('ArchivesSpace','baseURL')
