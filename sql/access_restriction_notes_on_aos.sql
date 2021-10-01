@@ -9,7 +9,7 @@ SELECT
 	archival_object.ref_id,
 	enumeration_value.value as level,
 	/*output full JSON Blob*/
-	CONVERT(note.notes USING utf8) as note_content,
+	CONVERT(note.notes using 'utf8') as note_content,
 	note.id as note_identifier
 
 FROM 
