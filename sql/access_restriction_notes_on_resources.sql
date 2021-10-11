@@ -17,5 +17,7 @@ FROM
 WHERE 
 	note.notes LIKE "%accessrestrict%" 
 AND
+	(note.notes LIKE "% 2020%" OR note.notes LIKE "% 2021%")
+AND
 	note.resource_id IS NOT NULL
 ORDER BY resource.identifier
