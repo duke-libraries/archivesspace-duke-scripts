@@ -1,6 +1,6 @@
 SELECT 
 	archival_object.repo_id as repo_id,
-    resource.id as resource_id,
+    	resource.id as resource_id,
 	resource.title as collection_title,
 	resource.ead_id as ead_id,
 	note.archival_object_id as ao_id,
