@@ -1,6 +1,6 @@
 SELECT
     resource.id as 'aspace_resource_id',
-    resource.identifier as 'collection_id',
+    replace(replace(replace(replace(replace(resource.identifier, ',', '.'), '"', ''), ']', ''), '[', ''), '.null', '') as collection_id,
     resource.title,
     extent.number as 'extent_number',
     ev1.value AS 'extent_type',

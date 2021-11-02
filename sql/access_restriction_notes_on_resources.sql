@@ -1,6 +1,6 @@
 SELECT 
 	resource.id as resource_URI,
-	resource.identifier as collection_id,
+	replace(replace(replace(replace(replace(resource.identifier, ',', '.'), '"', ''), ']', ''), '[', ''), '.null', '') as collection_id,
 	resource.title as collection_title,
 	resource.ead_id,
 	note.id as note_identifier,
