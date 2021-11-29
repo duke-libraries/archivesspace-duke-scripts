@@ -5,7 +5,7 @@ SELECT
 	resource.ead_id,
 	note.id as note_identifier,
 	note_persistent_id.persistent_id as note_PID,
-	CONVERT(note.notes USING utf8) as note_content
+	json_extract(convert(note.notes using utf8), '$.subnotes[0].content') as note_content,
 
 FROM 
 	note
