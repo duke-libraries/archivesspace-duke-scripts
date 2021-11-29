@@ -11,6 +11,7 @@ SELECT
 	enumeration_value.value as ao_level,
 	/*output full JSON Blob*/
 	REPLACE(REPLACE(CONVERT(note.notes using 'utf8'),CHAR(13),''), CHAR(10), '') as note_content,
+	json_extract(convert(note.notes using utf8), '$.subnotes[0].content') as note_content_text,
 	note_persistent_id.persistent_id as note_persistent_id
 
 FROM 
