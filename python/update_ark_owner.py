@@ -25,7 +25,7 @@ output_csv = input("Path to Output CSV: ")
 #Update ARK Function
 def update_ark_owner(ARK_id):
      
-    #Set ArcLight owner to 'duke_rl' (previously duke_ddr)
+    #Set ArcLight owner to 'duke_rl' (previously 'duke_ddr')
     new_ark_owner = '_owner: duke_rl'
     
     #EZID seems to need these headers to be explicit
@@ -46,7 +46,7 @@ def update_ark_owner(ARK_id):
         updated_ark = response_dict['success']
         #print (minted_ark)
         
-        #get metadata about the ARK you just minted...
+        #get metadata about the ARK you just updated...
         get_updated_ark = requests.get('https://ezid.cdlib.org/id/{0}'.format(updated_ark), auth=(EZID_username, EZID_password))
         print (get_updated_ark.text)
         
