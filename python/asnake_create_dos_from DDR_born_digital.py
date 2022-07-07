@@ -45,7 +45,7 @@ publish_true_false = input("Publish Digital Objects? true or false?: ")
 #Global Variables for all DOs created
 file_version_use_statement = 'ddr-item-lookup'
 #Set prefix for DDR search URLs
-ddr_lookup_prefix = 'https://repository.duke.edu/catalog?f[aspace_id_ssi][]='
+ddr_lookup_prefix = 'https://repository.duke.edu/catalog?f[common_model_name_ssi][]=Item&f[aspace_id_ssi][]='
 
 
 with open(input_csv,'rt', newline='') as csvfile, open(output_csv,'wt', newline='') as csvout:
