@@ -120,11 +120,21 @@ To do so, use this digitization guide as the imput file for the duke_update_arch
             <xsl:value-of select="normalize-space(ead:did/ead:unittitle)"/>
             <xsl:value-of select="$tab"/>
 
-            <!-- Date Expression -->
+		
+            <!-- Date Expression - single value -->
 
-            <xsl:value-of select="normalize-space(ead:did/ead:unitdate)"/>
+            <!--
+            <xsl:value-of select="normalize-space(ead:did/ead:unitdate[1])"/>
             <xsl:value-of select="$tab"/>
-
+            -->
+            
+            <!-- Date Expression - multiple values -->
+            <xsl:for-each select="ead:did/ead:unitdate">
+                <xsl:value-of select="normalize-space(.)"/>
+                <xsl:if test="not(position() = last())"><xsl:text> </xsl:text></xsl:if>
+                <xsl:text>| </xsl:text>
+            </xsl:for-each>
+            <xsl:value-of select="$tab"/>
 
             <!-- controlled extent statement, typically # of items or pages -->
             <xsl:value-of select="normalize-space(ead:did/ead:physdesc/ead:extent[1])"/>
