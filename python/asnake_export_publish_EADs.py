@@ -8,6 +8,8 @@ import time
 import io
 import configparser
 import argparse
+import xml.etree.ElementTree as ET
+
 
 DEBUG = False
 
@@ -185,7 +187,7 @@ def check_for_unpublished_nodes(resource_uri, ead_id):
 ids = requests.get(AS_api_url+ endpoint, headers=headers).json()
 
 input_eads = input('Type out EAD ID to check for ARK (comma separated): ')
-input_eads = input_eads.split(',')
+input_eads = [x.strip() for x in input_eads.split(',')]
 input_uris = []
 #if all(i.isnumeric() for i in input_eads):
 #    print(f'Interpretting your input as URIs')
@@ -313,6 +315,8 @@ for ead in input_eads:
                 #ead = aspace_client.get(id_uri_string + '.xml' + export_options).text
                 ead_xml = requests.get(AS_api_url + id_uri_string + '.xml' + export_options, headers=headers).text
                 f = io.open(EAD_export_path + ead + '.xml', mode='w', encoding='utf-8')
+                ead_xml = ET.indent(ET.fromstring(ead_xml))
+                print(ead_xml)
                 f.write(ead_xml)
                 f.close()
                 print (ead + '.xml' ' | ' + resource_id + ' | ' + aspace_id_short + ' | ' + last_modified_by + ' | ' + user_mtime_slice + ' | ' + 'exported')
