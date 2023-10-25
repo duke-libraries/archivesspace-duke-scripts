@@ -8,7 +8,7 @@ import time
 import io
 import configparser
 import argparse
-import xml.etree.ElementTree as ET
+import xml.dom.minidom
 
 
 DEBUG = False
@@ -288,10 +288,14 @@ for ead in input_eads:
                 time.sleep(10.0)
                 print (ead + " | Exporting EAD file...")
                 #ead = aspace_client.get(id_uri_string + '.xml' + export_options).text
+
                 ead_xml = requests.get(AS_api_url + id_uri_string + '.xml' + export_options, headers=headers).text
                 f = io.open(EAD_export_path + ead +'.xml', mode='w', encoding='utf-8')
-                f.write(ead_xml)
+                temp = xml.dom.minidom.parseString(ead_xml)
+                pretty_xml_as_string = temp.toprettyxml()
+                f.write(pretty_xml_as_string)
                 f.close()
+
                 print (ead + '.xml' ' | ' + resource_id + ' | ' + aspace_id_short + ' | ' + last_modified_by + ' | ' + user_mtime_slice + ' | ' + 'exported')
 
             #If not published, set finding aid status to published
@@ -315,9 +319,9 @@ for ead in input_eads:
                 #ead = aspace_client.get(id_uri_string + '.xml' + export_options).text
                 ead_xml = requests.get(AS_api_url + id_uri_string + '.xml' + export_options, headers=headers).text
                 f = io.open(EAD_export_path + ead + '.xml', mode='w', encoding='utf-8')
-                ead_xml = ET.indent(ET.fromstring(ead_xml))
-                print(ead_xml)
-                f.write(ead_xml)
+                temp = xml.dom.minidom.parseString(ead_xml)
+                pretty_xml_as_string = temp.toprettyxml()
+                f.write(pretty_xml_as_string)
                 f.close()
                 print (ead + '.xml' ' | ' + resource_id + ' | ' + aspace_id_short + ' | ' + last_modified_by + ' | ' + user_mtime_slice + ' | ' + 'exported')
 
