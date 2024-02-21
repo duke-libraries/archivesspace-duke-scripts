@@ -21,7 +21,6 @@ config.read(configFilePath)
 logging.basicConfig(filename='AS_delete_DO.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 AS_usernamne = config.get('ArchivesSpace', 'user')
-AS_password = config.get('ArchivesSpace', 'password')
 AS_api_url = config.get('ArchivesSpace', 'baseURL')
 AS_repository_id = config.get('ArchivesSpace', 'repository')
 
