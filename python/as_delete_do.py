@@ -23,9 +23,9 @@ logging.basicConfig(filename='AS_delete_DO.log', level=logging.INFO, format='%(a
 AS_usernamne = config.get('ArchivesSpace', 'user')
 AS_api_url = config.get('ArchivesSpace', 'baseURL')
 AS_repository_id = config.get('ArchivesSpace', 'repository')
+AS_password = config.get('ArchivesSpace', 'password')
 
 logging.info(f'AS_usernamne: {AS_usernamne}')
-logging.info(f'AS_password: {AS_password}')
 logging.info(f'AS_api_url: {AS_api_url}')
 logging.info(f'AS_repository_id: {AS_repository_id}')
 logging.info(f'CSV_FILE: {CSV_FILE}')
@@ -40,5 +40,5 @@ for i in DOs:
     print(f'URL: {AS_api_url}/repositories/{AS_repository_id}/digital_objects/{i[0]}')
     logging.info(f'URL: {AS_api_url}/repositories/{AS_repository_id}/digital_objects/{i[0]}')
     # Delete the # in the next line to actually delete the DOs
-    #response = requests.delete(f'{AS_api_url}/repositories/{AS_repository_id}/digital_objects/{i[0]}', auth=(AS_usernamne, AS_password))
+    response = requests.delete(f'{AS_api_url}/repositories/{AS_repository_id}/digital_objects/{i[0]}', auth=(AS_usernamne, AS_password))
     logging.info(f'Response: {response.status_code} - {response.text}')
