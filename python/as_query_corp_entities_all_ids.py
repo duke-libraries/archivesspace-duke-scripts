@@ -36,10 +36,6 @@ logger = logging.getLogger(__name__)
 class ConfigLoader:
     """
     Loads configuration required to connect to ArchivesSpace.
-
-    Why:
-    Centralizing config prevents environment-specific values
-    from spreading across the codebase.
     """
 
     def __init__(self, path: str):
@@ -142,6 +138,14 @@ class ArchivesSpaceClient:
 
 
 # ------------------------------------------------------------
+# Constants for target values
+# ------------------------------------------------------------
+
+TARGET_ROLE = "source"  # Change to desired role value
+TARGET_RELATOR = "rps"  # Change to desired relator value
+
+
+# ------------------------------------------------------------
 # CSV Processing
 # ------------------------------------------------------------
 
@@ -191,22 +195,19 @@ def update_agent_link(resource: dict, corp_id: str) -> bool:
     """
 
     agent_ref = f"/agents/corporate_entities/{corp_id}"
-
     updated = False
 
     for agent in resource.get("linked_agents", []):
         if agent.get("ref") != agent_ref:
             continue
-
         role = agent.get("role")
         relator = agent.get("relator") if "relator" in agent else None
-
-        # If relator is missing or not 'rps', or role is not 'source', update/add as needed
-        if role != "source" or relator != "rps":
+        # If relator is missing or not TARGET_RELATOR, or role is not TARGET_ROLE, update/add as needed
+        if role != TARGET_ROLE or relator != TARGET_RELATOR:
             agent["_old_role"] = role
             agent["_old_relator"] = relator
-            agent["role"] = "source"
-            agent["relator"] = "rps"
+            agent["role"] = TARGET_ROLE
+            agent["relator"] = TARGET_RELATOR
             updated = True
 
     return updated
@@ -248,7 +249,7 @@ def process_updates(
                 if updated_agent:
                     old_role = updated_agent.get("_old_role")
                     old_relator = updated_agent.get("_old_relator")
-                    logger.info(f"Would update resource {resource_id}, role {old_role}->source, relator {old_relator}->rps")
+                    logger.info(f"Would update resource {resource_id}, role {old_role}->{TARGET_ROLE}, relator {old_relator}->{TARGET_RELATOR}")
                 else:
                     logger.info(f"Would update resource {resource_id} (details unavailable)")
                 if print_linked_agents:
@@ -345,7 +346,18 @@ def main():
         action="store_true",
         help="When in dry-run, print the linked_agents section of each resource processed.",
     )
+    parser.add_argument(
+        "--log-to-file",
+        action="store_true",
+        help="If set, write logs to as_query_corp_entities_all_ids.log as well as console.",
+    )
     args = parser.parse_args()
+
+    if args.log_to_file:
+        file_handler = logging.FileHandler("as_query_corp_entities_all_ids.log", mode="a", encoding="utf-8")
+        file_handler.setFormatter(logging.Formatter("%(asctime)s | %(levelname)s | %(message)s"))
+        logger.addHandler(file_handler)
+
     config_file = "asnake_local_settings.cfg"
     csv_file = "agents-corporate-entities_resources_links-to-update_2026-01-13.csv"
     config = ConfigLoader(config_file)

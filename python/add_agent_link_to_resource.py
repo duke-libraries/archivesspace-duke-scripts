@@ -210,7 +210,18 @@ def main():
         action="store_true",
         help="When in dry-run, print the linked_agents section of each resource processed."
     )
+    parser.add_argument(
+        "--log-to-file",
+        action="store_true",
+        help="If set, write logs to add_agent_link_to_resource.log as well as console."
+    )
     args = parser.parse_args()
+
+    if args.log_to_file:
+        file_handler = logging.FileHandler("add_agent_link_to_resource.log", mode="a", encoding="utf-8")
+        file_handler.setFormatter(logging.Formatter("%(asctime)s | %(levelname)s | %(message)s"))
+        logger.addHandler(file_handler)
+
     config_file = "asnake_local_settings.cfg"
     csv_file = "add-agent-link-source-rps_2026-02-13.csv"
     config = ConfigLoader(config_file)
